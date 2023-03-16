@@ -2,16 +2,39 @@ Function AddDoubleQuotes(ByVal text As String) As String
     Dim regex As Object
     Dim match As Object
     Dim matches As Object
+    Dim result As String
+    Dim startPos As Long
     
     Set regex = CreateObject("VBScript.RegExp")
     regex.Global = True
-    regex.Pattern = "(?<![""])\b\d{16}\b(?![""])"
+    regex.Pattern = "\b\d{16}\b"
     
     Set matches = regex.Execute(text)
     
+    startPos = 1
+    result = ""
+    
     For Each match In matches
-        text = Replace(text, match.Value, """" & match.Value & """")
+        Dim beforeChar As String
+        Dim afterChar As String
+        
+        beforeChar = IIf(match.FirstIndex > 0, Mid(text, match.FirstIndex, 1), "")
+        afterChar = IIf(match.FirstIndex + match.Length + 1 <= Len(text), Mid(text, match.FirstIndex + match.Length + 1, 1), "")
+        
+        If beforeChar <> """" Then
+            result = result & Mid(text, startPos, match.FirstIndex - startPos + 1) & """"
+            startPos = match.FirstIndex + 1
+        End If
+        If afterChar <> """" Then
+            result = result & Mid(text, startPos, match.Length) & """"
+            startPos = match.FirstIndex + match.Length + 1
+        Else
+            result = result & Mid(text, startPos, match.Length)
+            startPos = match.FirstIndex + match.Length
+        End If
     Next match
     
-    AddDoubleQuotes = text
+    result = result & Mid(text, startPos)
+    
+    AddDoubleQuotes = result
 End Function
