@@ -3,6 +3,9 @@ Option Explicit
 
 
 Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceNum As String, ByVal UserFullName As String, ByVal inEventDate As String) As String
+'create a new event on a project(epic)
+'return the id of that event so it can be linked then to the project
+
     Dim oHTTP As Object
     Dim sURL As String
 

@@ -57,7 +57,7 @@ GetObjectSubject = sSubject
 End Function
 
 
-Function GetObjectBody() As String
+Function GetObjectBody(Optional ByRef AttendeeEmails As Variant) As String
     Dim objItem As Object
     Dim olMail As MailItem
     Dim objMeeting As Outlook.MeetingItem
@@ -65,8 +65,14 @@ Function GetObjectBody() As String
     
     Dim sBody As String
     Dim sAttendees As String
+    Dim cEmails As New Collection, AttendeeEmails$
     
-    sAttendees = ListAttendees
+    sAttendees = ListAttendees(cEmails)
+    For Each e In cEmails
+        
+        Debug.Print e
+    Next e
+    
     
     GetObjectBody = "Something went wrong"
     
@@ -487,13 +493,13 @@ errH:
 End Function
 
 
-Function ListAttendees() As String
+Function ListAttendees(Optional ByRef inEmails As Variant) As String
 
     Dim objApp As Outlook.Application
     Dim objItem As Object
     Dim objMeeting As Outlook.MeetingItem
     Dim objAppointment As Outlook.AppointmentItem
-    Dim strAttendees As String
+    Dim strAttendees As String, strEmails As String
     Dim objAttendee As Outlook.Recipient
     ListAttendees = "Something went wrong getting attendees"
     On Error GoTo errH:
@@ -513,13 +519,18 @@ Function ListAttendees() As String
     ElseIf objItem.Class = 26 Then
         Set objAppointment = objItem
         For Each objAttendee In objAppointment.Recipients
-        Debug.Print objAttendee
+        Debug.Print objAttendee.Address
+        
         If objAttendee.Type = olRequired Or objAttendee.Type = olOptional Then
             If objAttendee.MeetingResponseStatus = olResponseAccepted Then
                 strAttendees = strAttendees & objAttendee.name & "; "
+                If IsMissing(inEmails) <> True Then
+                    inEmails.Add objAttendee.AddressEntry.GetExchangeUser.PrimarySmtpAddress & ","
+                End If
             End If
         ElseIf objAttendee.Type = 0 Or objAttendee.Type = 1 Then ' organizer
             strAttendees = strAttendees & objAttendee.name & "; "
+            
         End If
         Next
         If Len(strAttendees) > 0 Then

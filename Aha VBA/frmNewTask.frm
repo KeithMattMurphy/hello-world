@@ -40,8 +40,12 @@ Dim Result As String
                 If Left(projnum, 10) = "ETPROJECTS" Then
                     If Me.Caption = "Create a new event" Then
                         
+                        'SendHTTPEvent returns the ref. number of the new event
                         Result = SendHTTPEvent(Me.txtSubject, Me.txtBody, projnum, Me.cbo_Assigned.value, Me.DTPicker1.value)
+                        
+                        'new event number has to be linked to the proj/task it's created for
                         Result = UpdateCustomObjectLinks(projnum, Result)
+                        Unload Me
                     Else
                         If InStr(1, GetObjectSubject, "ETPROJECTS") = 0 Then ' if no already assigned
                             Result = SendHTTPPost(Me.txtSubject, Me.txtBody, projnum)
