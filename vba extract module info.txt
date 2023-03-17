@@ -1,0 +1,27 @@
+Sub ListVBAProjectComponents()
+    Dim VBProj As VBIDE.VBProject
+    Dim VBComp As VBIDE.VBComponent
+    Dim VBCodeMod As VBIDE.CodeModule
+    Dim lineNumber As Long
+    Dim lineText As String
+    
+    Set VBProj = Application.VBE.ActiveVBProject
+    
+    For Each VBComp In VBProj.VBComponents
+        Set VBCodeMod = VBComp.CodeModule
+        
+        Debug.Print "Component: " & VBComp.Name & ", Type: " & VBComp.Type
+        
+        For lineNumber = 1 To VBCodeMod.CountOfLines
+            lineText = VBCodeMod.Lines(lineNumber, 1)
+            
+            If InStr(1, lineText, "Sub ", vbTextCompare) > 0 Or _
+               InStr(1, lineText, "Function ", vbTextCompare) > 0 Or _
+               InStr(1, lineText, "Event ", vbTextCompare) > 0 Then
+                Debug.Print "  - " & Trim(lineText)
+            End If
+        Next lineNumber
+        
+        Debug.Print ""
+    Next VBComp
+End Sub
