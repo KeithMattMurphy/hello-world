@@ -41,10 +41,12 @@ Dim Result As String
                     If Me.Caption = "Create a new event" Then
                         
                         'SendHTTPEvent returns the ref. number of the new event
-                        Result = SendHTTPEvent(Me.txtSubject, Me.txtBody, projnum, Me.cbo_Assigned.value, Me.DTPicker1.value)
+                        Result = SendHTTPEvent(Me.txtSubject, Me.txtBody, projnum, Me.cbo_Assigned.value, Me.DTPicker1.value, Me.txtAttendees)
                         
                         'new event number has to be linked to the proj/task it's created for
                         Result = UpdateCustomObjectLinks(projnum, Result)
+                        
+                        
                         Unload Me
                     Else
                         If InStr(1, GetObjectSubject, "ETPROJECTS") = 0 Then ' if no already assigned
@@ -100,17 +102,28 @@ Shell Command, vbHide
 
 End Sub
 
+Private Sub txtAttendees_Change()
+
+End Sub
+
 Private Sub UserForm_Initialize()
 Dim CurrentUser As String
 CurrentUser = GetUserFNameLName()
 
 With cbo_Assigned
     .AddItem "Akshay Goyal"
-    .AddItem "Jogil Jose"
+    .AddItem "Angelica Cox"
     .AddItem "Barry Lavin"
-    .AddItem "Stephen Quinn"
-    .AddItem "Jennifer Vercauteren"
     .AddItem "Ioana Digennaro"
+    .AddItem "Jennifer Poos"
+    .AddItem "Jennifer Vercauteren"
+    .AddItem "Jogil Jose"
+    .AddItem "Keith Murphy"
+    .AddItem "Lindsay Schagrin"
+    .AddItem "Rachael Lowe"
+    .AddItem "Seth Riley"
+    .AddItem "Stephen Quinn"
+
     .AddItem CurrentUser
     .value = CurrentUser
 End With
@@ -128,11 +141,22 @@ With Me.cbo_ProjectStatus
     .value = "Recurring"
 End With
 
-'MsgBox (Format(Me.DTPicker1, "yyyy-mm-dd"))
+
+
+
+
+    Dim cEmails As New Collection
+    
+    sAttendees = "Attendees: " & ListAttendees(cEmails)
+    If sAttendees <> "Attendees: " Then
+        For Each e In cEmails
+            Me.txtAttendees = """" & e & """" & ", " & Me.txtAttendees
+        Next e
+        Me.txtAttendees = Left(Me.txtAttendees, Len(Me.txtAttendees) - 2)
+    End If
+    
 Me.txtSubject = GetObjectSubject()
 Me.txtBody = Left(GetObjectBody(), 500)
-'cbo_Assigned.Value = GetUserFNameLName()
-
 
 
 End Sub
@@ -212,9 +236,9 @@ Function SendHTTPPost(inSubject As String, inBody As String, ByVal inProjNum As 
     """, ""value_stream_ets"":""" & value_stream_ets & _
     """}"
     
-      
     
     sBody = "{""feature"":{""name"":""" & inSubject & """," & _
+    """created_by_user"":""" & GetUserFNameLName() & """," & _
     """description"":""" & inBody & """, " & _
     """assigned_to_user"":""" & UserFullName & """, " & _
     """epic"":""" & epic_reference_num & """, " & _

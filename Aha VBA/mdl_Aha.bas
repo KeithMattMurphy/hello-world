@@ -65,24 +65,17 @@ Function GetObjectBody(Optional ByRef AttendeeEmails As Variant) As String
     
     Dim sBody As String
     Dim sAttendees As String
-    Dim cEmails As New Collection, AttendeeEmails$
-    
-    sAttendees = ListAttendees(cEmails)
-    For Each e In cEmails
-        
-        Debug.Print e
-    Next e
-    
+
     
     GetObjectBody = "Something went wrong"
     
     Set objItem = Application.ActiveInspector.CurrentItem
     If objItem.Class = olMeetingRequest Then
         Set objMeeting = objItem
-        sBody = sAttendees & vbCrLf & objMeeting.Body
+        sBody = objMeeting.Body
     ElseIf objItem.Class = 26 Then 'appointment
         Set objAppointment = objItem
-        sBody = "Attendees: " & sAttendees & vbCrLf & vbCrLf & objAppointment.Body
+        sBody = objAppointment.Body
     ElseIf objItem.Class = 43 Then
         Set olMail = objItem
         If TypeOf olMail Is Outlook.MailItem Then
@@ -189,7 +182,43 @@ Function RemoveNonASCII(str As String) As String
     Next i
     RemoveNonASCII = newStr
 End Function
+Function UpdateAppointmentSubject(ByVal inTaskOrProjNum) As String
+UpdateAppointmentSubject = "Error"
 
+Dim olApp As Outlook.Application
+Dim objItem As Object
+Dim objMeeting As Outlook.MeetingItem
+Dim objAppointment As Outlook.AppointmentItem
+
+Dim strNewSubject As String
+Dim FeaturePos%
+
+
+' Set the new subject you want to update the email with
+If Left(inTaskOrProjNum, 12) = "ETPROJECTS-E" Then
+    strNewSubject = " | https://optum.aha.io/epics/" & inTaskOrProjNum
+Else
+    strNewSubject = " | https://optum.aha.io/features/" & inTaskOrProjNum
+End If
+
+' Get the Outlook Application object
+Set olApp = New Outlook.Application
+
+' Check if there is a selected email
+
+
+Set objItem = Application.ActiveInspector.CurrentItem
+FeaturePos = InStr(1, objItem.Subject, "https://optum.aha.io/")
+    If FeaturePos = 0 Then
+        ' Update the subject of the email
+        objItem.Subject = objItem.Subject & strNewSubject
+        objItem.Save
+    End If
+
+
+UpdateAppointmentSubject = "OK"
+' Clean up
+End Function
 
 Function UpdateEmailSubject(ByVal inTaskNum) As String
 UpdateEmailSubject = "Error"
@@ -274,9 +303,13 @@ Function AddCommentToFeature(ByVal inFeature As String, ByVal InComment) As Stri
     oHTTP.setRequestHeader "Accept", "application/json"
     oHTTP.setRequestHeader "Authorization", Bearer
     
-    sBody = "{""comment"":{""body"":""" & InComment & """}}"
-    
-        
+    Dim UserFullName$
+    'UserFullName = "Jogil Jose"
+    sBody = "{""comment"":{""body"":""" & InComment & """, " & _
+    """}}"
+    '"""created_by_user"":""" & UserFullName & _
+
+
     'sBody = "{""name"":""" & sSubject & """," & _
     '"""description"":""" & sBody & """, " & _
     '"""assigned_to_user"":""" & UserFullName & """, " & _
@@ -525,7 +558,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
             If objAttendee.MeetingResponseStatus = olResponseAccepted Then
                 strAttendees = strAttendees & objAttendee.name & "; "
                 If IsMissing(inEmails) <> True Then
-                    inEmails.Add objAttendee.AddressEntry.GetExchangeUser.PrimarySmtpAddress & ","
+                    inEmails.Add objAttendee.AddressEntry.GetExchangeUser.PrimarySmtpAddress
                 End If
             End If
         ElseIf objAttendee.Type = 0 Or objAttendee.Type = 1 Then ' organizer
