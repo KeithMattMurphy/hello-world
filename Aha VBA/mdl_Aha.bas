@@ -134,16 +134,7 @@ Function SanitizeEmailBody(sText As String) As String
     SanitizeEmailBody = RemoveNonASCII(SanitizeEmailBody)
 End Function
 
-Function RemoveNonASCII(str As String) As String
-    Dim i As Integer
-    Dim newStr As String
-    For i = 1 To Len(str)
-        If Asc(Mid(str, i, 1)) < 256 Then
-            newStr = newStr & Mid(str, i, 1)
-        End If
-    Next i
-    RemoveNonASCII = newStr
-End Function
+
 
 Function GetUserFNameLName() As String
 Dim fName$
@@ -181,7 +172,16 @@ End Function
 
 
 
-
+Function RemoveNonASCII(str As String) As String
+    Dim i As Integer
+    Dim newStr As String
+    For i = 1 To Len(str)
+        If Asc(Mid(str, i, 1)) < 256 Then
+            newStr = newStr & Mid(str, i, 1)
+        End If
+    Next i
+    RemoveNonASCII = newStr
+End Function
 Function UpdateAppointmentSubject(ByVal inTaskOrProjNum) As String
 UpdateAppointmentSubject = "Error"
 On Error GoTo errh:
@@ -549,7 +549,6 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
         Set objMeeting = objItem
         For Each objAttendee In objMeeting.Recipients
             If objAttendee.Type = olRequired Then
-            'If objAttendee.MeetingResponseStatus = olResponseAccepted Then
                 strAttendees = strAttendees & objAttendee.name & "; "
             End If
         Next
@@ -558,7 +557,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
     ElseIf objItem.Class = 26 Then
         Set objAppointment = objItem
         For Each objAttendee In objAppointment.Recipients
-        'Debug.Print objAttendee.AddressEntry.GetExchangeUser.PrimarySmtpAddress
+        Debug.Print objAttendee.Address
         
         If objAttendee.Type = olRequired Or objAttendee.Type = olOptional Then
             If objAttendee.MeetingResponseStatus = olResponseAccepted Then

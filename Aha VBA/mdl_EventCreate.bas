@@ -346,26 +346,30 @@ Function GetExistingLinks(ByVal inObject As Dictionary) As String
 existingCustomObjectLinks = "Error"
     existingCustomObjectLinks = "["
     'if no existing links will error out to end
-    For Each customrecordlink In inObject("custom_object_links")
-        If customrecordlink("key") = "events" Then
-            For Each ID In customrecordlink("record_ids")
-                
-                If existingCustomObjectLinks <> "[" Then
-                    existingCustomObjectLinks = existingCustomObjectLinks & ","
+    If IsNull(inObject("custom_object_links")) = False Then
+        'If inObject("custom_object_links") <> "" Then
+            For Each customrecordlink In inObject("custom_object_links")
+                If customrecordlink("key") = "events" Then
+                    For Each ID In customrecordlink("record_ids")
+                        
+                        If existingCustomObjectLinks <> "[" Then
+                            existingCustomObjectLinks = existingCustomObjectLinks & ","
+                        End If
+                        existingCustomObjectLinks = existingCustomObjectLinks & """" & CStr(ID) & """"
+                    Next ID
+                    
+        'Add the new event link
+        
+                    Debug.Print existingCustomObjectLinks
+                    
+                    '****** don't close brackets here - needs to be closed from calling funciton
+                    '****** after adding the new link to the list
+                    'existingCustomObjectLinks = existingCustomObjectLinks & "]"
+        
                 End If
-                existingCustomObjectLinks = existingCustomObjectLinks & """" & CStr(ID) & """"
-            Next ID
-            
-'Add the new event link
-
-            Debug.Print existingCustomObjectLinks
-            
-            '****** don't close brackets here - needs to be closed from calling funciton
-            '****** after adding the new link to the list
-            'existingCustomObjectLinks = existingCustomObjectLinks & "]"
-
-        End If
-    Next customrecordlink
+            Next customrecordlink
+        'End If
+    End If
     
     
 errh:
