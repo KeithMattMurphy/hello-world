@@ -134,7 +134,16 @@ Function SanitizeEmailBody(sText As String) As String
     SanitizeEmailBody = RemoveNonASCII(SanitizeEmailBody)
 End Function
 
-
+Function RemoveNonASCII(str As String) As String
+    Dim i As Integer
+    Dim newStr As String
+    For i = 1 To Len(str)
+        If Asc(Mid(str, i, 1)) < 256 Then
+            newStr = newStr & Mid(str, i, 1)
+        End If
+    Next i
+    RemoveNonASCII = newStr
+End Function
 
 Function GetUserFNameLName() As String
 Dim fName$
@@ -172,19 +181,10 @@ End Function
 
 
 
-Function RemoveNonASCII(str As String) As String
-    Dim i As Integer
-    Dim newStr As String
-    For i = 1 To Len(str)
-        If Asc(Mid(str, i, 1)) < 256 Then
-            newStr = newStr & Mid(str, i, 1)
-        End If
-    Next i
-    RemoveNonASCII = newStr
-End Function
+
 Function UpdateAppointmentSubject(ByVal inTaskOrProjNum) As String
 UpdateAppointmentSubject = "Error"
-
+On Error GoTo errh:
 Dim olApp As Outlook.Application
 Dim objItem As Object
 Dim objMeeting As Outlook.MeetingItem
@@ -217,6 +217,11 @@ FeaturePos = InStr(1, objItem.Subject, "https://optum.aha.io/")
 
 
 UpdateAppointmentSubject = "OK"
+Exit Function
+errh:
+    If Err.Description <> "" Then
+        MsgBox Err.Description
+    End If
 ' Clean up
 End Function
 
@@ -305,7 +310,7 @@ Function AddCommentToFeature(ByVal inFeature As String, ByVal InComment) As Stri
     
     Dim UserFullName$
     'UserFullName = "Jogil Jose"
-    sBody = "{""comment"":{""body"":""" & InComment & """, " & _
+    sBody = "{""comment"":{""body"":""" & InComment & _
     """}}"
     '"""created_by_user"":""" & UserFullName & _
 
@@ -377,7 +382,7 @@ Set fs = CreateObject("Scripting.FileSystemObject")
 
 Dim ts As Object
 Set ts = fs.CreateTextFile(EpicsFilePath, True)
-On Error GoTo errH:
+On Error GoTo errh:
 
 apiKey = environ("ETL_Aha_API_Key")
 Bearer = "Bearer " + apiKey
@@ -420,8 +425,8 @@ While pageNum < total_pages
 Wend
 
 
-Result = "Epics OK"
-errH:
+Result = "Projects Refreshed"
+errh:
     ts.Close
     MsgBox Result
 End Sub
@@ -446,7 +451,7 @@ Set fs = CreateObject("Scripting.FileSystemObject")
 
 Dim ts As Object
 Set ts = fs.CreateTextFile(ReleasesFilePath, True)
-On Error GoTo errH:
+On Error GoTo errh:
 
 apiKey = environ("ETL_Aha_API_Key")
 Bearer = "Bearer " + apiKey
@@ -489,8 +494,8 @@ While pageNum < total_pages
 Wend
 
 
-Result = "Releases OK"
-errH:
+Result = "Releases Refreshed"
+errh:
     ts.Close
     MsgBox Result
 End Sub
@@ -500,7 +505,7 @@ Function GetAppointmentDate() As String
     Dim objMeeting As Outlook.MeetingItem
     Dim objAppointment As Outlook.AppointmentItem
     GetAppointmentDate = "Something went wrong with GetAppointmentDate"
-    On Error GoTo errH:
+    On Error GoTo errh:
     'Set objApp = CreateObject("Outlook.Application")
     'Set objItem = objApp.ActiveExplorer.Selection(1)
     
@@ -519,7 +524,7 @@ Function GetAppointmentDate() As String
     Set objMeeting = Nothing
     Set objAppointment = Nothing
     
-errH:
+errh:
     If Err.Description <> "" Then
         GetAppointmentDate = GetAppointmentDate & Err.Description
     End If
@@ -535,7 +540,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
     Dim strAttendees As String, strEmails As String
     Dim objAttendee As Outlook.Recipient
     ListAttendees = "Something went wrong getting attendees"
-    On Error GoTo errH:
+    On Error GoTo errh:
     'Set objApp = CreateObject("Outlook.Application")
     'Set objItem = objApp.ActiveExplorer.Selection(1)
     
@@ -544,6 +549,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
         Set objMeeting = objItem
         For Each objAttendee In objMeeting.Recipients
             If objAttendee.Type = olRequired Then
+            'If objAttendee.MeetingResponseStatus = olResponseAccepted Then
                 strAttendees = strAttendees & objAttendee.name & "; "
             End If
         Next
@@ -552,7 +558,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
     ElseIf objItem.Class = 26 Then
         Set objAppointment = objItem
         For Each objAttendee In objAppointment.Recipients
-        Debug.Print objAttendee.Address
+        'Debug.Print objAttendee.AddressEntry.GetExchangeUser.PrimarySmtpAddress
         
         If objAttendee.Type = olRequired Or objAttendee.Type = olOptional Then
             If objAttendee.MeetingResponseStatus = olResponseAccepted Then
@@ -582,7 +588,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
     Set objItem = Nothing
     Set objMeeting = Nothing
     
-errH:
+errh:
     If Err.Description = "" Then
         ListAttendees = strAttendees
     Else

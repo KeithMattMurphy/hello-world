@@ -1,10 +1,10 @@
 VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmNewTask 
    Caption         =   "Create a new task"
-   ClientHeight    =   6585
+   ClientHeight    =   7050
    ClientLeft      =   120
    ClientTop       =   465
-   ClientWidth     =   7995
+   ClientWidth     =   11625
    OleObjectBlob   =   "frmNewTask.frx":0000
    StartUpPosition =   1  'CenterOwner
 End
@@ -17,6 +17,7 @@ Attribute VB_Exposed = False
 
 Private Sub cbo_Assigned_Change()
 Dim Result$
+Me.cboSetOwner.value = Me.cbo_Assigned.value
 Result = GetEpics(Me.cbo_Assigned.value, cbo_ProjectStatus.value)
 End Sub
 
@@ -41,7 +42,7 @@ Dim Result As String
                     If Me.Caption = "Create a new event" Then
                         
                         'SendHTTPEvent returns the ref. number of the new event
-                        Result = SendHTTPEvent(Me.txtSubject, Me.txtBody, projnum, Me.cbo_Assigned.value, Me.DTPicker1.value, Me.txtAttendees)
+                        Result = SendHTTPEvent(Me.txtSubject, Me.txtBody, projnum, Me.cbo_Assigned.value, Me.DTPicker1.value, Me.cboSetOwner)
                         
                         'new event number has to be linked to the proj/task it's created for
                         Result = UpdateCustomObjectLinks(projnum, Result)
@@ -50,7 +51,7 @@ Dim Result As String
                         Unload Me
                     Else
                         If InStr(1, GetObjectSubject, "ETPROJECTS") = 0 Then ' if no already assigned
-                            Result = SendHTTPPost(Me.txtSubject, Me.txtBody, projnum)
+                            Result = SendHTTPPost(Me.txtSubject, Me.txtBody, projnum, Me.cboSetOwner)
                         Else
                             MsgBox "It looks like this email is already assigned to a Task - check the subject line", vbCritical
                         End If
@@ -128,16 +129,35 @@ With cbo_Assigned
     .value = CurrentUser
 End With
 
+With cboSetOwner
+    .AddItem "Akshay Goyal"
+    .AddItem "Angelica Cox"
+    .AddItem "Barry Lavin"
+    .AddItem "Ioana Digennaro"
+    .AddItem "Jennifer Poos"
+    .AddItem "Jennifer Vercauteren"
+    .AddItem "Jogil Jose"
+    .AddItem "Keith Murphy"
+    .AddItem "Lindsay Schagrin"
+    .AddItem "Rachael Lowe"
+    .AddItem "Seth Riley"
+    .AddItem "Stephen Quinn"
+
+    .AddItem CurrentUser
+    .value = CurrentUser
+End With
+
+
 With Me.cbo_ProjectStatus
     .AddItem "Not Started"
     .AddItem "Next"
     .AddItem "Recurring"
     .AddItem "In progress"
     .AddItem "Monitoring"
-    .AddItem "Complete"
-    .AddItem "On hold"
-    .AddItem "Cancelled"
-    .AddItem "Archive"
+    '.AddItem "Complete"
+    '.AddItem "On hold"
+    '.AddItem "Cancelled"
+    '.AddItem "Archive"
     .value = "Recurring"
 End With
 
@@ -152,17 +172,19 @@ End With
         For Each e In cEmails
             Me.txtAttendees = """" & e & """" & ", " & Me.txtAttendees
         Next e
-        Me.txtAttendees = Left(Me.txtAttendees, Len(Me.txtAttendees) - 2)
+        Me.txtBody = sAttendees & Left(GetObjectBody(), 500)
+    Else
+        Me.txtBody = Left(GetObjectBody(), 500)
     End If
     
 Me.txtSubject = GetObjectSubject()
-Me.txtBody = Left(GetObjectBody(), 500)
+
 
 
 End Sub
 
 
-Function SendHTTPPost(inSubject As String, inBody As String, ByVal inProjNum As String) As String
+Function SendHTTPPost(inSubject As String, inBody As String, ByVal inProjNum As String, ByVal inAssignOwner As String) As String
     Dim oHTTP As Object
     Dim sURL As String
 
@@ -240,7 +262,7 @@ Function SendHTTPPost(inSubject As String, inBody As String, ByVal inProjNum As 
     sBody = "{""feature"":{""name"":""" & inSubject & """," & _
     """created_by_user"":""" & GetUserFNameLName() & """," & _
     """description"":""" & inBody & """, " & _
-    """assigned_to_user"":""" & UserFullName & """, " & _
+    """assigned_to_user"":""" & inAssignOwner & """, " & _
     """epic"":""" & epic_reference_num & """, " & _
     """custom_fields"":" & sCustomFields & "}}" ' & "," & _
 
@@ -307,7 +329,7 @@ Loop
 
 
 
-errH:
+errh:
 If Err.Description <> "" Then
     MsgBox Err.Description
 End If
@@ -347,7 +369,7 @@ Loop
 Done:
 GetReleases = "OK"
 
-errH:
+errh:
 Close #fileHandle
 End Function
 

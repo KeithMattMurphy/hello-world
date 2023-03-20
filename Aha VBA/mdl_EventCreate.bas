@@ -1,8 +1,8 @@
 Attribute VB_Name = "mdl_EventCreate"
-Option Explicit
+'Option Explicit
 
 
-Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceNum As String, ByVal UserFullName As String, ByVal inEventDate As String, ByVal inAttendees As String) As String
+Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceNum As String, ByVal UserFullName As String, ByVal inEventDate As String, ByVal inAssignOwner As String) As String
 'create a new event on a project(epic)
 'return the id of that event so it can be linked then to the project
 
@@ -27,7 +27,7 @@ Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceN
         End If
     Else
         SendHTTPEvent = "Invalid Project or Task Number provided"
-        GoTo errH:
+        GoTo errh:
     End If
     
     
@@ -47,12 +47,12 @@ Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceN
     oHTTP.setRequestHeader "Authorization", Bearer
 
     sCustomFields = "{""event"" : """ & inSubject & _
-    """, ""et_events_assigned_to"":""" & UserFullName & _
+    """, ""et_events_assigned_to"":""" & inAssignOwner & _
     """, ""event_date"":""" & Format(DateValue(inEventDate), "YYYY-MM-DD") & _
-    """, ""attendees"":" & "{""email_value"":[" & inAttendees & "]}" & _
-    ", ""et_events_notes"":""" & inBody & _
+    """, ""et_events_notes"":""" & inBody & _
     """}"
-    
+    '""", ""attendees"":" & "{""email_value"":[" & inAttendees & "]}" & _
+
     sBody = "{""custom_object_record"":{""custom_fields"":" & sCustomFields & "}}"
 
 
@@ -80,7 +80,7 @@ Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceN
 '    End If
     'Debug.Print (sresponse)
     
-errH:
+errh:
 End Function
 
 
@@ -207,7 +207,7 @@ Function UpdateCustomObjectLinks(ByVal recordID As String, ByVal newCustomObject
         End If
     Else
         UpdateCustomObjectLinks = "Invalid Project or Task Number provided"
-        GoTo errH:
+        GoTo errh:
     End If
     
     'recordID = "ETPROJECTS-3825"
@@ -226,6 +226,7 @@ Function UpdateCustomObjectLinks(ByVal recordID As String, ByVal newCustomObject
     Else
         existingCustomObjectLinks = GetExistingLinks(record("epic"))
     End If
+    
     
     If existingCustomObjectLinks = "[" Then
         updatedCustomObjectLinks = existingCustomObjectLinks & """" & CStr(newCustomObjectLink) & """"
@@ -254,17 +255,17 @@ Function UpdateCustomObjectLinks(ByVal recordID As String, ByVal newCustomObject
     Else
         ConfirmedCustomObjectLinks = GetExistingLinks(record("epic"))
     End If
-    
+    ConfirmedCustomObjectLinks = ConfirmedCustomObjectLinks & "]"
     'check if every item in both
     
-    If CompareLists(updatedCustomObjectLinks, ConfirmedCustomObjectLinks) = "OK" Or ConfirmedCustomObjectLinks = "[" Then
+    If CompareLists(updatedCustomObjectLinks, ConfirmedCustomObjectLinks) = "OK" Then
         If UpdateAppointmentSubject(recordID) <> "OK" Then
             MsgBox "OK - event created & linked but Appointment subject not updated "
         End If
     Else
         MsgBox "An issue has occured linking the event to your project/task. Please take a screenshot & email to your admin. updatedCustomObjectLinks:" & updatedCustomObjectLinks & " ConfirmedCustomObjectLinks: " & ConfirmedCustomObjectLinks
     End If
-errH:
+errh:
     If Err.Description <> "" Then
         UpdateCustomObjectLinks = UpdateCustomObjectLinks & " | " & Err.Description
     Else
@@ -284,7 +285,7 @@ CompareLists = "Error"
     Dim dict1 As Object
     Dim dict2 As Object
     Dim elem As Variant
-On Error GoTo errH
+On Error GoTo errh
     ' Convert string parameters to arrays
     list1 = Split(strList1, ",")
     list2 = Split(strList2, ",")
@@ -327,7 +328,7 @@ On Error GoTo errH
      
      CompareLists = "OK"
      Exit Function
-errH:
+errh:
 End Function
 
 
@@ -338,9 +339,11 @@ End Function
 
 Function GetExistingLinks(ByVal inObject As Dictionary) As String
     Dim existingCustomObjectLinks As String
-    On Error GoTo errH:
-Dim customrecordlink As Object
-Dim ID As Object
+    On Error GoTo errh:
+'Dim customrecordlink As Object
+'Dim ID As Object
+
+existingCustomObjectLinks = "Error"
     existingCustomObjectLinks = "["
     'if no existing links will error out to end
     For Each customrecordlink In inObject("custom_object_links")
@@ -356,12 +359,19 @@ Dim ID As Object
 'Add the new event link
 
             Debug.Print existingCustomObjectLinks
+            
+            '****** don't close brackets here - needs to be closed from calling funciton
+            '****** after adding the new link to the list
+            'existingCustomObjectLinks = existingCustomObjectLinks & "]"
 
         End If
     Next customrecordlink
     
     
-errH:
+errh:
+If Err.Description <> "" Then
+    MsgBox Err.Description
+End If
     GetExistingLinks = existingCustomObjectLinks
 End Function
 
