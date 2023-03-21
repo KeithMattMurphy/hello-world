@@ -1,0 +1,1005 @@
+0:0:0.0 --> 0:0:30.170
+Cox, Angelica
+Yep, I don't see an uh there it is. Never mind. OK. Alright. So yeah. So once they have their, you know, team meeting, then they're gonna be tracking that concept in the pipeline. So with the commercial teams as well, they start doing the post pay review to look at all the historical claims to see how much you know there was an overpayment. But ultimately with overs our product is the prepay analytics. So we start out with these first.
+0:0:30.240 --> 0:0:42.620
+Cox, Angelica
+Three swim lanes are all based on the post pay work and claims, and then eventually, once it gets far enough along, then we start building that prepay analytic and deploy that.
+0:1:5.340 --> 0:1:5.780
+DiGennaro, Ioana
+Umm.
+0:0:43.550 --> 0:1:7.680
+Cox, Angelica
+So when the pipeline that is also out here in the ideation page, we also have a link here, but essentially every single client has their own Excel file. And so I'll use Highmark because I think that's the one that Ray had used with Leslie. I'm just gonna download this because.
+0:1:9.200 --> 0:1:10.910
+Cox, Angelica
+I don't want to make any changes.
+0:1:11.710 --> 0:1:16.580
+DiGennaro, Ioana
+And as the same one that we're gonna need to use for this pilot as well.
+0:1:17.170 --> 0:1:17.980
+Cox, Angelica
+Umm yeah.
+0:1:18.860 --> 0:1:40.180
+Cox, Angelica
+So and as you can see in this page, everybody's got their own pipeline, so everyone can access and look at every client pipeline in case they're trying to look for any information or, you know, maybe savings, things like that. But each team is gonna be tracking the concepts that they're working in, in their own pipeline.
+0:1:43.770 --> 0:1:44.170
+Cox, Angelica
+Mm-hmm.
+0:1:41.30 --> 0:1:50.740
+DiGennaro, Ioana
+And since you are right here, Angelica Keith, Keith, one, one of the ideas was how CRD is.
+0:1:52.100 --> 0:1:54.880
+DiGennaro, Ioana
+It's having the pipeline for UHC.
+0:1:56.220 --> 0:2:0.800
+DiGennaro, Ioana
+I didn't know if maybe we need to consider for commercial.
+0:2:1.740 --> 0:2:17.160
+DiGennaro, Ioana
+You know, instead of CRD workspace to have high mark workspace, you know that will contain high mark pipeline instead of having a commercial ah commercial containing all of them.
+0:2:19.420 --> 0:2:20.190
+DiGennaro, Ioana
+You know.
+0:2:21.230 --> 0:2:21.630
+DiGennaro, Ioana
+Uh-huh.
+0:2:28.290 --> 0:2:28.860
+DiGennaro, Ioana
+Mm-hmm.
+0:2:35.490 --> 0:2:35.950
+DiGennaro, Ioana
+Mm-hmm.
+0:2:19.150 --> 0:2:41.580
+Cox, Angelica
+Now let me jump in on that as well. So I that was one of the discussions we had with like Chris and Mackenzie and we talked about how to set up the workspace for this kind of phase two when Ray was involved. And I know that there was a comment, I'm not sure who made it.
+0:2:49.810 --> 0:2:50.240
+DiGennaro, Ioana
+Uh-huh.
+0:2:42.180 --> 0:3:5.510
+Cox, Angelica
+But just the ease of access to be able to have all of these clients in the same space. But then for those teams that are working on their client, like high mark specific or Optum care, whatever the case may be to allow some sort of filter so that they can filter on their own client concept.
+0:3:6.100 --> 0:3:6.490
+DiGennaro, Ioana
+OK.
+0:3:6.740 --> 0:3:7.360
+Cox, Angelica
+If that makes.
+0:3:8.120 --> 0:3:9.810
+Cox, Angelica
+If I'm explaining that OK.
+0:3:10.150 --> 0:3:10.610
+DiGennaro, Ioana
+Umm.
+0:3:11.160 --> 0:3:11.790
+Murphy, Keith
+Angelica.
+0:3:10.860 --> 0:3:12.720
+Cox, Angelica
+So I know that they. Yeah.
+0:3:13.700 --> 0:3:17.310
+Murphy, Keith
+Is there a need to segregate access for client?
+0:3:19.180 --> 0:3:21.20
+Murphy, Keith
+Or can everyone no.
+0:3:24.540 --> 0:3:24.970
+Murphy, Keith
+OK.
+0:3:29.580 --> 0:3:29.850
+Murphy, Keith
+OK.
+0:3:18.920 --> 0:3:30.500
+Cox, Angelica
+I don't believe so. Yeah, I think everyone, because everyone has access to these files today. So they know that if they're in another clients, they should not be making any updates. They're only viewing.
+0:3:31.180 --> 0:3:38.50
+Cox, Angelica
+So they should only be updating the pipelines and concepts specific to the client that they're assigned to.
+0:3:39.170 --> 0:3:41.90
+Cox, Angelica
+But they can all view each of these.
+0:3:41.830 --> 0:3:42.300
+DiGennaro, Ioana
+And huh.
+0:3:51.660 --> 0:3:52.210
+DiGennaro, Ioana
+Gotcha.
+0:4:3.840 --> 0:4:4.270
+DiGennaro, Ioana
+Uh-huh.
+0:4:6.930 --> 0:4:7.340
+DiGennaro, Ioana
+Yeah.
+0:3:42.550 --> 0:4:7.710
+Cox, Angelica
+So I know that I do recall that Chris Melvin liked the idea of having everything in the same place, but then again, if you needed to filter down to a specific client that we make that available as well. So I don't know if that's maybe having, I don't know, maybe other spaces within CPI or just using the client filter the filter down.
+0:4:8.150 --> 0:4:13.820
+DiGennaro, Ioana
+Yeah, yeah. So probably it's gonna be then similar to CRD and the pods.
+0:4:18.570 --> 0:4:19.10
+Cox, Angelica
+Mm-hmm.
+0:4:15.10 --> 0:4:20.840
+DiGennaro, Ioana
+This is just in my in my head, you know high level, not yeah. OK.
+0:4:22.60 --> 0:4:22.460
+Cox, Angelica
+All right.
+0:4:23.370 --> 0:4:23.770
+Cox, Angelica
+No.
+0:4:21.960 --> 0:4:25.650
+DiGennaro, Ioana
+Sorry for the interruption. Yeah, I didn't want to get you sidetracked.
+0:4:26.380 --> 0:4:26.890
+DiGennaro, Ioana
+Thank you.
+0:4:25.920 --> 0:4:29.170
+Cox, Angelica
+Yeah, that's good. Let me try to find one. Let me get rid of this.
+0:4:30.400 --> 0:4:53.150
+Cox, Angelica
+But essentially every pipeline is set up the same way, at least for this first tab. There are some additional tabs that they use to pull information off of the pipeline to help them, like create an agenda for when they're meeting with the client or operations. We could look at that later. I feel like this piece is more important so.
+0:4:55.470 --> 0:5:25.460
+Cox, Angelica
+Like I was saying, every client when Mitch from the portfolio team is first destablished this pipeline file he will create that and then once it's set up then the client teams will begin adding their concepts here. And so everybody should have the same field and also values within each layer are some drop downs here. So all of that should be consistent across all clients and there was even some work done.
+0:5:25.600 --> 0:5:34.380
+Cox, Angelica
+In 2020, to use common language between the CPI pipeline and the CRD. Aha.
+0:5:35.950 --> 0:5:50.960
+Cox, Angelica
+So I know that Mark was involved in that as well, so just some extra information. So it looks like this one went all the way through. So when like for example when they.
+0:5:52.70 --> 0:5:56.740
+Cox, Angelica
+Identified this concept. They would add it to the pipeline.
+0:5:57.360 --> 0:6:28.910
+Cox, Angelica
+So we have that OPRS analytic ID, the title and description, and then there's all of these additional fields. Most of these starting out are like different date fields, so savings impact here is what is the year that they are estimating that they will begin to generate savings if this concept was deployed. So this is just an estimate. We have the concept added date. So when the team identified they wanted to begin researching this concept and.
+0:6:28.990 --> 0:6:32.690
+Cox, Angelica
+Added the concept to the pipeline. That's what this field is.
+0:6:33.680 --> 0:6:43.670
+Cox, Angelica
+And then we also have several governance meetings with the clients, which also ties to this workflow. If I come back here.
+0:6:46.100 --> 0:7:16.650
+Cox, Angelica
+Where once the team does this initial work and they determine that the concepts viable, they're going to present it to the client for pre approval. So again just kind of high level details, here's what they identified and then we have to get the approval of the client to let them know whether they should continue pursuing this concept and moving along or if the client is not interested at all then they're gonna stop it right then and there and basically.
+0:7:16.730 --> 0:7:33.90
+Cox, Angelica
+Close it out on the pipeline. So this pre-approval is the first step of governance. Then we have some additional governance touch points with the client where we're going to provide the data results to them. They do their own level of QA.
+0:7:34.310 --> 0:7:53.140
+Cox, Angelica
+There's also another four final governance. So again, all of these three swim lanes are based on the post pay data. And so at this final governance meeting, they're presenting everything that they found throughout these three phases. And then the clients gonna either make that decision.
+0:7:53.980 --> 0:8:22.240
+Cox, Angelica
+To move it forward to prepay, which is our Oprah solution, or whether again the client determines they don't want to pursue it. So then they'll close it at that point. At final governance, there's two additional kind of touch points with the client, which is the Info mode deployment. So before we deploy that prepay analytic into the OPRS engine in.
+0:8:22.890 --> 0:8:53.160
+Cox, Angelica
+Production, where we're actually going to start tagging claims and all of those downstream things happen. They first deploy the analytic into info mode, which is essentially like a production smoke test QA phase to ensure that before they fully release this concept that it's tagging appropriately, they can check the results in the database tables or in the report. But those claims that get tagged and info mode don't go.
+0:8:53.260 --> 0:8:59.450
+Cox, Angelica
+Downstream to operation, we don't send those responses back to the client.
+0:9:0.570 --> 0:9:5.420
+Cox, Angelica
+So again, it's just really a production QA test once.
+0:9:6.490 --> 0:9:36.560
+Cox, Angelica
+R&D operations, the client is satisfied with these info tags. The client is again gonna let them know. Hey, now we're ready to deploy this in production and let's start tagging these claims as they come in daily. So that's the production. Deployment is the last piece of that kind of governance. All those governance steps. So our pipeline built in each of those touch points with the client. So we have different dates.
+0:9:37.20 --> 0:9:46.150
+Cox, Angelica
+To identify when is the presentation for pre approval scheduled and this pre approval date would be when the client approves it.
+0:9:47.160 --> 0:9:53.420
+Cox, Angelica
+Similarly, the data results sent to client are based off the QA data result.
+0:9:54.110 --> 0:10:3.580
+Cox, Angelica
+Or the post pay data we hand that off to the client. They do their own QA and then they're gonna let us know when they approve it.
+0:10:4.920 --> 0:10:18.460
+Cox, Angelica
+And then we also have that final governance step. So this is that what this field is indicating here is when that final presentation scheduled and here is when the client actually gave approval to the concept.
+0:10:20.280 --> 0:10:31.370
+Cox, Angelica
+Now we also have the info mode date and then if this was running in production these others should be filled in as well.
+0:10:32.540 --> 0:10:33.230
+Cox, Angelica
+So.
+0:10:34.960 --> 0:10:47.940
+Cox, Angelica
+It looks like maybe they haven't deployed it into production yet. Sometimes these info mode analytics run for a few days, sometimes a few weeks, and other times it can take several months.
+0:10:49.80 --> 0:10:55.130
+Cox, Angelica
+So as this analytic gets deployed into production then they would update these dates as well.
+0:10:56.560 --> 0:10:57.130
+Cox, Angelica
+So.
+0:10:57.210 --> 0:11:0.830
+Cox, Angelica
+Umm, let me move over a bit.
+0:11:1.620 --> 0:11:2.860
+Cox, Angelica
+There's a lot here.
+0:11:5.950 --> 0:11:33.950
+Cox, Angelica
+Sorry for all the scrolling. Alright, so after we get all those dates and governance items then we get some general information about the concept. Is it targeting a specific client type? What's the edit type pen holder deny and then the product whenever it states analytic? This is our OPRS analytic now for our CPI clients our comprehensive payment integrity clients.
+0:11:34.570 --> 0:11:41.820
+Cox, Angelica
+They typically sign up for two or more products, so usually we'll see if they've.
+0:11:42.430 --> 0:11:44.460
+Cox, Angelica
+Find out while you're data mining.
+0:11:45.190 --> 0:11:52.920
+Cox, Angelica
+There's also CES, which other teams handle. FCR is another product, so there's a variety of different products.
+0:11:54.260 --> 0:11:58.470
+Cox, Angelica
+But our R&D teams are tracking these analytics.
+0:11:59.760 --> 0:12:2.50
+Cox, Angelica
+Product because this relates to OPRS.
+0:12:5.240 --> 0:12:5.910
+Cox, Angelica
+Again comma.
+0:12:5.250 --> 0:12:7.930
+Murphy, Keith
+So we're only tracked in the analytic.
+0:12:8.100 --> 0:12:11.520
+Murphy, Keith
+Hey, we're only tracking the actuals from the analytic.
+0:12:12.220 --> 0:12:12.810
+Murphy, Keith
+Punked.
+0:12:15.220 --> 0:12:15.610
+Murphy, Keith
+Is it?
+0:12:15.10 --> 0:12:16.840
+Cox, Angelica
+I'm sorry. Can you repeat that?
+0:12:17.820 --> 0:12:18.950
+Murphy, Keith
+And the.
+0:12:19.690 --> 0:12:25.600
+Murphy, Keith
+I'm not sure if I've got this right, but this relates to like it's analytic, its what to say OPI's.
+0:12:26.70 --> 0:12:26.580
+Cox, Angelica
+Yes.
+0:12:27.280 --> 0:12:30.920
+Murphy, Keith
+So that's where the actuals post deployment are. Is that right?
+0:12:31.790 --> 0:12:43.40
+Cox, Angelica
+Well, this is just relating to out of all of the products the client has signed up for. What is this concept for which product is it for?
+0:12:43.100 --> 0:12:44.160
+Murphy, Keith
+Like, what's the product?
+0:12:53.300 --> 0:12:53.640
+Murphy, Keith
+Yeah.
+0:12:45.180 --> 0:12:55.660
+Cox, Angelica
+Yeah. So there's several. So again, you know the client has the ability to sign up for both post and prepay products. So we have all of those items.
+0:12:56.320 --> 0:13:1.500
+Cox, Angelica
+Left it here of all the various types of products that they can choose.
+0:13:4.390 --> 0:13:12.470
+Cox, Angelica
+And so just by looking at high marks, they again anything that's dates analytic product relates to OPRS analytics.
+0:13:13.350 --> 0:13:29.880
+Cox, Angelica
+Umm FCR is another prepay product that there's a vendor that we utilize for FCR, but the R&D team helps them to gather information and to deploy analytics. So they're also tracking FCR.
+0:13:30.720 --> 0:13:43.0
+Cox, Angelica
+PSM predictive scoring model is another prepay product that there's a different team. It's the data science team within PIDI. They create and maintain these.
+0:13:43.840 --> 0:14:3.890
+Cox, Angelica
+Uh PSM concept, but we're also tracking those here on the pipeline as well and if they signed up for something like CES, which again is yet another prepay product that Doctor Paul team handles within CCD, they would be tracking those here too. But I don't see the CD reflected.
+0:14:6.350 --> 0:14:7.510
+DiGennaro, Ioana
+No, Angelica.
+0:14:8.230 --> 0:14:12.560
+DiGennaro, Ioana
+Just to pause a little bit over there, the team.
+0:14:13.570 --> 0:14:24.840
+DiGennaro, Ioana
+It's still responsible to update this pipeline regardless of the product that that edit in particular applies to.
+0:14:25.850 --> 0:14:27.70
+DiGennaro, Ioana
+But that's the affairs.
+0:14:25.950 --> 0:14:27.500
+Cox, Angelica
+With the CPI team.
+0:14:27.920 --> 0:14:29.160
+DiGennaro, Ioana
+Yeah, yeah.
+0:14:28.710 --> 0:14:29.730
+Cox, Angelica
+Yes, yes.
+0:14:29.840 --> 0:14:30.330
+DiGennaro, Ioana
+OK.
+0:14:39.710 --> 0:14:40.40
+Murphy, Keith
+Yeah.
+0:14:31.900 --> 0:14:43.710
+Cox, Angelica
+Yes. So there may be some like with PSM and FCR, they're most likely partnering with those groups because we can see like the owner names are these are all CPI stack.
+0:14:44.230 --> 0:14:44.850
+DiGennaro, Ioana
+Umm.
+0:14:44.500 --> 0:14:50.120
+Cox, Angelica
+But these people here most likely are related to the FCR and PSM team.
+0:14:50.760 --> 0:15:5.700
+DiGennaro, Ioana
+Yeah. So if I try to make like a parallel between this and CRD, the product would be how the solution partners are for CRD.
+0:15:9.140 --> 0:15:20.790
+DiGennaro, Ioana
+I don't know, Kay. I'm. I was trying to to help you in, in making that analogy, you know, to to kind of have that picture. If you if you have that from CRD perspective.
+0:15:28.180 --> 0:15:28.670
+DiGennaro, Ioana
+Uh-huh.
+0:15:22.580 --> 0:15:33.730
+Murphy, Keith
+Yeah, I'm. Yeah, I'm thanks 'cause. I think it picked up that I don't completely get it like, so if I'm understanding right and analytic is deployed.
+0:15:34.510 --> 0:15:38.910
+Murphy, Keith
+Cooper concept for an analytic and the analytic.
+0:15:39.710 --> 0:15:48.730
+Murphy, Keith
+Is deployed on the payment system and it detects the claims and applies that analytic to figure out whether or not it's in scope. Is that right?
+0:15:49.860 --> 0:16:4.940
+Cox, Angelica
+Yeah. So when they deploy the, let's say like the Oprah's analytic into the prepay space every day, we're getting a file from the client. So hi, Mark, in this case, they send us a.
+0:16:5.620 --> 0:16:12.750
+Cox, Angelica
+File with all of the prepay claims. So they've gone through adjudication, but they haven't been paid or finalized yet.
+0:16:13.510 --> 0:16:19.700
+Cox, Angelica
+It's before payment is made will load that file into our database.
+0:16:20.550 --> 0:16:45.230
+Cox, Angelica
+When we get those claims loaded, our analytics, we'll be able to detect based on the claim logics, kind of like the BRD requirements for CRD. So if it's a facility claim and they have certain revenue codes, whatever the case may be, then we'll tag those claims by the analytics. So we'll basically kind of pause those claims for further review.
+0:16:45.930 --> 0:17:1.650
+Cox, Angelica
+And then if it's like a penned or a hold, we'll send those to the operations team where they have claim reviewers that will review the claim to determine whether it was built appropriately or not.
+0:17:2.440 --> 0:17:32.850
+Cox, Angelica
+Umm. And then they'll provide that decision and send it back to the client and that's our recommendation. So if operations determines that, yes, this provider improperly built this claim, we recommended denial along with this reason, the provider gets that information in addition to telling the client that we recommend a denial on these claims. So then the client will take that file, we send them.
+0:17:33.270 --> 0:17:38.90
+Cox, Angelica
+They loaded into their system and then it'll go through final adjudication.
+0:17:39.350 --> 0:17:41.380
+Murphy, Keith
+So the file they send us.
+0:17:42.350 --> 0:17:44.800
+Murphy, Keith
+Each day, what system are we loading that into?
+0:17:45.890 --> 0:18:0.940
+Cox, Angelica
+Currently, that's within the OPRS database, so we're gonna be living in a dual world pretty soon because commercial is also moving to the CAP stack platform, which means a different database, different front end tool.
+0:18:2.450 --> 0:18:7.310
+Cox, Angelica
+So currently today our clients that are up and running.
+0:18:8.310 --> 0:18:12.840
+Cox, Angelica
+It gets loaded into OPRS, so let me show you something that may help.
+0:18:13.990 --> 0:18:14.540
+Cox, Angelica
+With this.
+0:18:16.790 --> 0:18:20.730
+Cox, Angelica
+So are again our current solution today is the OPRS.
+0:18:21.430 --> 0:18:22.870
+Cox, Angelica
+Database and system.
+0:18:23.880 --> 0:18:33.350
+Cox, Angelica
+And we have a front end which the operations team uses to provide review on those claims. But of course, we load all the data in the back end and the database.
+0:18:34.360 --> 0:18:38.20
+Cox, Angelica
+So this is the prepay flow, very, very high level.
+0:18:38.820 --> 0:18:51.330
+Cox, Angelica
+So every day the client is dropping that prepay claims file to that FTP location. We work together with the ETL team within PEDs.
+0:18:51.910 --> 0:19:0.440
+Cox, Angelica
+Umm and ETL gets notified that there's new file, they pick it up and then they begin loading it in our prepay space.
+0:19:1.530 --> 0:19:14.840
+Cox, Angelica
+So as they're loading that file, they do have to stage it first, probably similar to what you're used to, Keith, with some of your processes, but we they load that file in staging.
+0:19:15.490 --> 0:19:46.890
+Cox, Angelica
+To ensure that everything on the file is appropriate if there is an error detected, ETL's notified and then they identify what's the root cause and then they'll follow up with the client. Maybe they had a special character or an extra field or something like that, so then they'll tell the client. Then the client has to provide another file that's corrected. So then that would basically start all over. If everything's OK, they would continue to move it into our production space.
+0:19:47.970 --> 0:19:55.980
+Cox, Angelica
+So in our production space today in OPRS we call the D March, which is just the Data Mart in PLSQL.
+0:19:56.630 --> 0:20:7.10
+Cox, Angelica
+So they'll load the claims into the prepay claims table and then we have what's called a prioritization engine.
+0:20:7.570 --> 0:20:8.0
+Murphy, Keith
+You can.
+0:20:7.800 --> 0:20:25.160
+Cox, Angelica
+But it's a very, you know, complex process that will occur to basically detect those errors. So for all of the various products and solutions we have running in the prepaid space.
+0:20:26.80 --> 0:20:26.650
+Cox, Angelica
+Those.
+0:20:27.330 --> 0:20:38.370
+Cox, Angelica
+Umm, products or solutions will be able to detect when there's an error on the claim and then we stop it. So we're either going to deny it.
+0:20:39.170 --> 0:20:45.760
+Cox, Angelica
+Or we can place it as a penned or hold which pens and hold require operation review.
+0:20:47.530 --> 0:20:54.460
+Cox, Angelica
+But the analytics are going to and what we call tag those claims they're basically we're gonna stop those claims.
+0:20:55.800 --> 0:21:8.370
+Cox, Angelica
+And then we continue on to the recommendation. So recommendation is just meaning you know four those claims that got stopped by these analytic products.
+0:21:9.60 --> 0:21:19.150
+Cox, Angelica
+What is the edit type? Are we stating we should deny it? Are we stating we should Pender or hold it and I'll and also which product stopped it?
+0:21:20.260 --> 0:21:28.220
+Cox, Angelica
+So that gets loaded into a table again in our database which we will generate a file back to the client.
+0:21:28.890 --> 0:21:30.120
+Cox, Angelica
+So whenever we get that.
+0:21:31.280 --> 0:21:37.940
+Cox, Angelica
+Claim the first time and it goes through this process. That's what we call the initial recommendation.
+0:21:38.800 --> 0:21:55.210
+Cox, Angelica
+And then four, those claims that require operational review, then it's gonna come down here where those pen did claims they generate letters that go out to the provider requesting medical records and then the provider has.
+0:21:56.190 --> 0:21:59.720
+Cox, Angelica
+A certain time frame to return those records to us.
+0:22:0.930 --> 0:22:31.810
+Cox, Angelica
+We use a vendor for the letters which is called databank. So that's what these shapes out here are reflecting is that we pen the claims. We do create a PDF letter in addition to the metadata that ties to that letter, we send it to databank. They print those letters and they mail them out to the providers. So they handle the mail piece for us. And in addition, when those providers respond.
+0:22:32.80 --> 0:23:2.750
+Cox, Angelica
+To our request, they're going to send the records back to databank so they can mail them. They can upload them, fax them, whatever the case may be. However, database receipt or databank. However they receive that information, they're going to send a file back to a selectronic really just like we did with them. So they're going to send us a PDF version of that medical record in addition to the metadata file that.
+0:23:2.870 --> 0:23:3.710
+Cox, Angelica
+It's tight too.
+0:23:4.810 --> 0:23:5.260
+Murphy, Keith
+Just to.
+0:23:4.420 --> 0:23:19.840
+Cox, Angelica
+Did they send us that file back and then we load that into another database that we connect to within OPRS which is called the date the document management system DMS. When Gavin. I don't know if you're familiar with him, but.
+0:23:20.490 --> 0:23:22.830
+Cox, Angelica
+He is responsible for DMS.
+0:23:23.750 --> 0:23:31.840
+Cox, Angelica
+So we load those letters records in the DMS. Again we have like different views in the DMART in OPRS that.
+0:23:32.830 --> 0:23:36.740
+Cox, Angelica
+Hi to DMS where we can get that data that incoming data.
+0:23:37.420 --> 0:23:37.620
+Murphy, Keith
+Yeah.
+0:23:38.160 --> 0:23:47.400
+Cox, Angelica
+So when new record are detected, the OPRS application will take that PDF.
+0:23:48.40 --> 0:23:58.70
+Cox, Angelica
+File and it will attach it to the UI, so that's the operations reviewer can review the records as their reviewing the claims.
+0:23:58.870 --> 0:24:6.50
+Cox, Angelica
+And then once the operations reviewer makes that final recommendation of either allow or deny.
+0:24:6.770 --> 0:24:18.360
+Cox, Angelica
+Then those what we call CR case closure recommendations. Those will also be sent back on the response file. So on any given day.
+0:24:25.710 --> 0:24:26.70
+Murphy, Keith
+Yeah.
+0:24:19.210 --> 0:24:31.180
+Cox, Angelica
+The client is receiving the initial recommendations from those new claims they just sent us, in addition to any claims that were closed since the last time the file was generated.
+0:24:32.240 --> 0:24:42.20
+Cox, Angelica
+Thou we send that back to the client and then they, you know, take that file and then they load it into their system again. This is just a very high level simplified.
+0:24:42.790 --> 0:24:44.80
+Cox, Angelica
+Version of that.
+0:24:44.930 --> 0:24:51.350
+Cox, Angelica
+Umm. But did that help with understanding the flow and and where it all goes?
+0:24:53.750 --> 0:24:57.530
+Murphy, Keith
+Yeah, that was very clear. Thank you very much.
+0:24:57.920 --> 0:24:59.70
+Cox, Angelica
+OK, great.
+0:24:58.890 --> 0:24:59.290
+Murphy, Keith
+Yeah.
+0:25:0.450 --> 0:25:2.520
+Cox, Angelica
+So alright, yeah.
+0:25:3.140 --> 0:25:5.70
+Murphy, Keith
+I mean, I guess the reason I'm asking is.
+0:25:5.780 --> 0:25:14.290
+Murphy, Keith
+Because I'm curious to know, you know, do they and can we plug into that like we do for end to end currently?
+0:25:15.350 --> 0:25:15.960
+Murphy, Keith
+To.
+0:25:17.430 --> 0:25:18.490
+Murphy, Keith
+You know for reporting.
+0:25:19.280 --> 0:25:20.310
+Murphy, Keith
+Or are they going?
+0:25:21.460 --> 0:25:21.920
+DiGennaro, Ioana
+Uh-huh.
+0:25:21.660 --> 0:25:24.200
+Murphy, Keith
+Right. They going in manually and filling that we were so.
+0:25:25.210 --> 0:25:27.40
+Cox, Angelica
+So reporting related.
+0:25:25.190 --> 0:25:29.720
+DiGennaro, Ioana
+Yeah. Yeah. And that was thinking the same thing, kids. Sorry, Angelica.
+0:25:30.60 --> 0:25:32.310
+Cox, Angelica
+Reporting related to.
+0:25:33.230 --> 0:25:37.690
+Cox, Angelica
+The pipeline or just the analytic result?
+0:25:40.360 --> 0:25:48.10
+Murphy, Keith
+And I suppose I'm thinking about the pipeline, but post deployment so analytic results.
+0:25:49.620 --> 0:25:50.170
+Cox, Angelica
+OK.
+0:25:52.360 --> 0:26:6.10
+Cox, Angelica
+Yeah, I'm not sure how much time that'll save because what I just explained it as far as like the prepay that comes in at the very end. So that's basically again after they've done.
+0:26:7.710 --> 0:26:8.430
+Cox, Angelica
+All of.
+0:26:9.230 --> 0:26:10.450
+Cox, Angelica
+This work here.
+0:26:11.840 --> 0:26:12.770
+Murphy, Keith
+Yeah, I.
+0:26:11.860 --> 0:26:15.680
+Cox, Angelica
+That once it gets to this point, that's when.
+0:26:16.360 --> 0:26:17.970
+Cox, Angelica
+That workflow kicks into place.
+0:26:18.780 --> 0:26:21.800
+Cox, Angelica
+At the at the end here. So we're still missing essentially.
+0:26:22.530 --> 0:26:23.540
+Cox, Angelica
+All these other things.
+0:26:24.490 --> 0:26:25.510
+Cox, Angelica
+That come before it.
+0:26:27.200 --> 0:26:31.480
+Murphy, Keith
+This alternately there reporting out to the client on the performance or on the.
+0:26:32.320 --> 0:26:34.230
+Murphy, Keith
+If we put an analytic in place.
+0:26:35.460 --> 0:26:36.590
+Murphy, Keith
+And we are.
+0:26:39.540 --> 0:26:39.920
+Cox, Angelica
+Mm-hmm.
+0:26:40.660 --> 0:26:41.30
+Cox, Angelica
+Mm-hmm.
+0:26:37.700 --> 0:26:43.950
+Murphy, Keith
+Generating savings on a concept I guess we're apart now on that over a period of time.
+0:26:44.460 --> 0:26:50.880
+Cox, Angelica
+Yes, we. Yeah, we have reports in Tableau. We have various dashboard reports today.
+0:26:51.590 --> 0:26:51.870
+Murphy, Keith
+But.
+0:26:51.620 --> 0:26:58.670
+Cox, Angelica
+That will indicate that information, and then we also use the Cognos Pi portal reporting tool.
+0:26:59.560 --> 0:27:4.870
+Cox, Angelica
+Which gather similar information, but again only once it didn't prepay.
+0:27:6.650 --> 0:27:11.900
+Murphy, Keith
+OK, so that's plugging into all pros and Excel files I guess.
+0:27:13.990 --> 0:27:18.20
+Cox, Angelica
+For the reporting, no, those are a different, you know, front end tool.
+0:27:20.10 --> 0:27:20.730
+Cox, Angelica
+That though you.
+0:27:22.330 --> 0:27:24.20
+Murphy, Keith
+OK, I'm going to go on a bit.
+0:27:25.240 --> 0:27:26.220
+Cox, Angelica
+That's OK, that's OK.
+0:27:27.590 --> 0:27:28.570
+Cox, Angelica
+All good questions.
+0:27:31.60 --> 0:27:58.810
+Cox, Angelica
+So yeah, as far as the pipeline goes, all of the majority of this information is tracked for those initial stages before we get to prepay. So as they're moving on to every new step, they're coming out here and updating the concept. So when they're first identified, a concept that they wanna work on, they'll place it in this ideation status.
+0:27:59.980 --> 0:28:0.730
+Cox, Angelica
+And then.
+0:28:1.390 --> 0:28:10.800
+Cox, Angelica
+The phase will update based on what they select in this status field, and then every time it moves along. So again, let me try to make this comparison.
+0:28:11.530 --> 0:28:30.600
+Cox, Angelica
+So once we move it out of like the ideation phase, the next thing we're gonna do is we're gonna create the BRD to capture the post pay claim requirements so that we can see those historical claims do more analysis. So they'll update the next phase to be like post pay BRD.
+0:28:31.600 --> 0:28:51.240
+Cox, Angelica
+And so again, if I come back over here like we'll see. Well, here's, you know, pre approval when that happens, here's post, pay BRD. And then once it's the BRD is written, then it moves to coding with the developer, which again if I come back over here, this occurs in these steps.
+0:28:51.980 --> 0:28:52.690
+Murphy, Keith
+So it.
+0:28:51.860 --> 0:28:55.250
+Cox, Angelica
+Where we submit it in rally the developer codes it.
+0:28:56.410 --> 0:28:57.50
+Cox, Angelica
+Sorry, go ahead.
+0:28:58.130 --> 0:29:2.50
+Murphy, Keith
+So the the post pay is that effectively your.
+0:29:6.900 --> 0:29:7.160
+Cox, Angelica
+It.
+0:29:3.280 --> 0:29:7.960
+Murphy, Keith
+Is that effectively where your estimate comes from? Your post pay day above?
+0:29:8.480 --> 0:29:14.20
+Cox, Angelica
+Yes. So when they're calculating savings, it's all based on post pay claims.
+0:29:15.590 --> 0:29:16.50
+Murphy, Keith
+Since.
+0:29:18.940 --> 0:29:20.70
+Murphy, Keith
+And then the post.
+0:29:18.740 --> 0:29:24.720
+Cox, Angelica
+Yeah. So in order to try to forecast how much savings we'll here's what we found looking back a year.
+0:29:24.770 --> 0:29:25.170
+Murphy, Keith
+Yeah.
+0:29:25.780 --> 0:29:28.540
+Murphy, Keith
+And then the implementation of the post pay.
+0:29:29.480 --> 0:29:30.150
+Murphy, Keith
+And.
+0:29:41.870 --> 0:29:42.190
+Murphy, Keith
+Yeah.
+0:29:47.550 --> 0:29:47.810
+Murphy, Keith
+Right.
+0:29:29.800 --> 0:29:59.100
+Cox, Angelica
+We don't. We don't. Yeah, we don't deploy post pay anywhere. It's strictly just to do the data review and capture how much like claims or overpaid in order for them to make the pitch to the client and sell it. Like kind of like Shark Tank where you have your sales pitch to try to get the client to say, yes, they're gonna present all the post pay, historical claim information. And it's strictly just for that purpose.
+0:30:0.70 --> 0:30:0.570
+Murphy, Keith
+Umm.
+0:30:0.340 --> 0:30:18.630
+Cox, Angelica
+The only implementation is of the prepay, so the prepay is essentially the same as what they've identified in the post. Pay BRD, but now instead of looking at the claim that we're paid, we're going to be focused on the claims that have not yet been paid.
+0:30:19.840 --> 0:30:20.210
+DiGennaro, Ioana
+Mm-hmm.
+0:30:20.20 --> 0:30:20.310
+Cox, Angelica
+Now.
+0:30:19.600 --> 0:30:24.680
+Murphy, Keith
+So just how curiosity the post pay claims that have been paid?
+0:30:25.470 --> 0:30:31.0
+Murphy, Keith
+That we send them back to the client, I guess. Do they ultimately recover some of that money?
+0:30:33.140 --> 0:31:3.520
+Cox, Angelica
+So we send them claim examples of which occurs in this piece of it. If they have like data mining for example, is like a post pay product, the ideation team could refer that information to data mining and then they can recover that money for post pay. We also have a a newer product that I think one of Mackenzie teams is doing with OCR.
+0:31:5.520 --> 0:31:5.900
+Murphy, Keith
+OK.
+0:31:4.980 --> 0:31:7.530
+Cox, Angelica
+I think that might be Aetna, right you wanna?
+0:31:7.340 --> 0:31:9.70
+DiGennaro, Ioana
+Uh-huh. Yeah, I think so.
+0:31:9.140 --> 0:31:17.520
+Cox, Angelica
+Yeah, where with OCR based on the post pay claims, they identified our overpaid well, now they're going to do like a one time recovery.
+0:31:18.200 --> 0:31:21.520
+Cox, Angelica
+But that's a newer product that they're doing.
+0:31:22.240 --> 0:31:22.670
+Murphy, Keith
+OK.
+0:31:22.190 --> 0:31:24.230
+Cox, Angelica
+So there is that possibility as well.
+0:31:25.470 --> 0:31:26.630
+Murphy, Keith
+Right. That makes sense.
+0:31:26.940 --> 0:31:30.730
+Cox, Angelica
+Yeah, but the the main kind of priority today is.
+0:31:31.530 --> 0:31:34.700
+Cox, Angelica
+Getting that prepay analytic into.
+0:31:35.470 --> 0:31:38.820
+Cox, Angelica
+Place so that we can stop those claims.
+0:31:39.980 --> 0:31:41.290
+Cox, Angelica
+Before they've been paid.
+0:31:42.60 --> 0:31:42.320
+Murphy, Keith
+Yeah.
+0:31:42.920 --> 0:31:43.110
+Cox, Angelica
+Yep.
+0:31:44.510 --> 0:31:55.490
+Cox, Angelica
+So so like I was saying, every step along this workflow, they're essentially updating it as it moves along. So this phase continually moves.
+0:31:57.60 --> 0:31:57.520
+DiGennaro, Ioana
+Mm-hmm.
+0:31:56.890 --> 0:32:1.770
+Cox, Angelica
+And this again is really more for just tracking within the R&D team?
+0:32:3.320 --> 0:32:9.710
+Cox, Angelica
+No, but once it gets to that post, pay BRD. This is that first touch point with.
+0:32:10.520 --> 0:32:12.680
+Cox, Angelica
+The PIDI team in rally.
+0:32:13.500 --> 0:32:15.490
+Cox, Angelica
+Now let me try that. What is this?
+0:32:17.190 --> 0:32:20.420
+Cox, Angelica
+Let me try to find an example again to walk through.
+0:32:22.470 --> 0:32:23.560
+Cox, Angelica
+These are.
+0:32:28.220 --> 0:32:29.110
+Cox, Angelica
+I'm not see.
+0:32:31.880 --> 0:32:34.650
+Cox, Angelica
+H-81, OK.
+0:32:35.120 --> 0:32:38.90
+DiGennaro, Ioana
+So you said that that status is which one?
+0:32:44.950 --> 0:32:46.330
+DiGennaro, Ioana
+Umm OK.
+0:32:48.960 --> 0:32:49.460
+DiGennaro, Ioana
+Umm.
+0:32:51.130 --> 0:32:51.520
+DiGennaro, Ioana
+And just.
+0:32:38.960 --> 0:32:53.30
+Cox, Angelica
+So I'm trying to look for one that had gone through the post pay BRD phase, which again based on these dates I can tell that it moved along the process and it's even deployed in production.
+0:32:57.320 --> 0:32:57.740
+Cox, Angelica
+OK.
+0:32:53.540 --> 0:32:58.650
+DiGennaro, Ioana
+Yeah. And just FYI, we have 9 more minutes. I was just giving you that time.
+0:33:0.510 --> 0:33:0.890
+DiGennaro, Ioana
+Mm-hmm.
+0:32:59.130 --> 0:33:18.200
+Cox, Angelica
+OK, thanks. So so basically, once they capture the BRD requirements for the post pay claim, then we submit that to PIDI. I'm gonna show you that example now. So we have will not we but the R&D team has to come out to rally. It is single sign on.
+0:33:20.220 --> 0:33:23.660
+Cox, Angelica
+And let me grab this analytic IDH.
+0:33:25.260 --> 0:33:26.440
+Cox, Angelica
+Try to search for this.
+0:33:30.140 --> 0:33:32.210
+Cox, Angelica
+So today.
+0:33:33.500 --> 0:33:37.290
+Cox, Angelica
+As it exists. Why is this being super slow? Here we go.
+0:33:39.420 --> 0:33:39.790
+Cox, Angelica
+OK.
+0:33:40.440 --> 0:33:43.410
+Cox, Angelica
+So this as com prepay.
+0:33:44.170 --> 0:33:52.110
+Cox, Angelica
+Project space is where the PIDI team works out of and they have it split between Team one and Team 2.
+0:33:52.800 --> 0:33:54.150
+Cox, Angelica
+Because, you know we have.
+0:33:55.410 --> 0:34:2.220
+Cox, Angelica
+A lot of clients. So in order to balance the work between all of the resources within PDI, they're split.
+0:34:2.930 --> 0:34:6.310
+Cox, Angelica
+Umm. I'm not sure which team.
+0:34:8.580 --> 0:34:10.190
+Cox, Angelica
+Hi mark. And then let me.
+0:34:11.230 --> 0:34:13.390
+Cox, Angelica
+Check alright for the jumping.
+0:34:21.970 --> 0:34:30.180
+Cox, Angelica
+Now high market team one. And so since I'm out here, I did that kind of fast. But in our systems and tools rally.
+0:34:31.180 --> 0:35:0.120
+Cox, Angelica
+This is the PIDI business analyst and developers assigned to each of these teams. So for every client, there's a primary BA, and then there's also backup. And then there's this group of developers that work on all story submitted for team one. Similarly, there's a team too with the same setup. So the B gas are assigned to particular clients, whereas the developers flex depending on their capacity.
+0:35:1.80 --> 0:35:6.100
+Cox, Angelica
+Now I just came out here to see which team Highmark resides in. So I'm in team one.
+0:35:7.340 --> 0:35:12.550
+Cox, Angelica
+And they submit user stories. Keith, have you worked out of rally before?
+0:35:14.310 --> 0:35:18.250
+Murphy, Keith
+And I've seen it, but now I'm just in the process of getting access.
+0:35:18.690 --> 0:35:19.70
+Cox, Angelica
+OK.
+0:35:21.670 --> 0:35:24.680
+Cox, Angelica
+I'm going to search for this specific.
+0:35:25.490 --> 0:35:28.350
+Cox, Angelica
+Analytics and let me.
+0:35:38.670 --> 0:35:47.300
+Cox, Angelica
+Now hi mark. So as you can see, for H-81, there's two stories of post pay and a prepay. So we start with the post pay story.
+0:35:48.540 --> 0:35:49.840
+Cox, Angelica
+Now when I click on this.
+0:35:51.220 --> 0:36:1.590
+Cox, Angelica
+This is the user story that they submit to the PIDI team to let them know that they created the beardy the requirements for this analytic.
+0:36:2.340 --> 0:36:13.850
+Cox, Angelica
+And in this screen there are certain fields that they have to fill out. Some of these are prefilled like description. They utilize templates, so about half of the fields are completed for them.
+0:36:14.500 --> 0:36:25.610
+Cox, Angelica
+And then they have to come out to notes and basically tell the developer. Here's the file, the network folder where I saved the BRD Word document.
+0:36:26.260 --> 0:36:33.400
+Cox, Angelica
+So when the developer gets assigned, they're gonna copy this link, go out to this folder and pull the Word document.
+0:36:35.140 --> 0:36:44.590
+Cox, Angelica
+I'm off to the right is some information, so when they first submit this story with the BRD, they put it at defined.
+0:36:45.960 --> 0:36:48.550
+Cox, Angelica
+And then as it moves along, it'll get updated.
+0:36:50.300 --> 0:36:52.590
+Cox, Angelica
+But I'm going to jump to so this screen.
+0:36:53.270 --> 0:36:55.240
+Cox, Angelica
+Is what can be.
+0:36:56.840 --> 0:36:58.830
+Cox, Angelica
+Integrated with aha.
+0:36:59.600 --> 0:37:2.30
+Cox, Angelica
+The hang up is with tasks.
+0:37:2.870 --> 0:37:5.990
+Cox, Angelica
+And really, all these other ones, but they use tasks and discussions.
+0:37:6.880 --> 0:37:10.890
+Cox, Angelica
+This is where the integration did not exist previously.
+0:37:11.520 --> 0:37:17.310
+Cox, Angelica
+So for this post pay story for H-81 where we're requesting for the developers.
+0:37:18.110 --> 0:37:31.70
+Cox, Angelica
+Send us the claim the post pay claim examples based on these requirements. These are all of the tasks that it takes by all the various partners. Between me would be the R&D team.
+0:37:31.830 --> 0:37:39.710
+Cox, Angelica
+The dev is the PIDI developer and then we even have the Scrum master which is the PIDI manager.
+0:37:40.510 --> 0:37:48.620
+Cox, Angelica
+And between all of these various groups, here's all the task. All the work that it takes to mark this story as complete.
+0:37:49.870 --> 0:37:57.200
+Cox, Angelica
+Go in the Orange D team submits this story. They're going to have their BRD backs written so they mark that complete.
+0:37:57.880 --> 0:38:17.760
+Cox, Angelica
+They also have a team call within their own R&D team where they review the BRD in its entirety to ensure that they've captured everything appropriately. That should also be done at the point when this story submitted. So again, Kalyn who was on the R&D team will mark this as complete.
+0:38:18.510 --> 0:38:22.440
+Cox, Angelica
+The third store that here is really where we're now.
+0:38:23.640 --> 0:38:33.120
+Cox, Angelica
+Submitting this and asking Jennifer and we place this in the in Progress state when we put it in progress. This is letting Jennifer know that, hey this.
+0:38:33.890 --> 0:38:41.830
+Cox, Angelica
+Story is ready to be picked up by a developer, so she will look at that developer list and assign one out.
+0:38:43.200 --> 0:38:58.840
+Cox, Angelica
+Show market complete once it's signed and then now we have these dev so anything would Dev are the developer tab and as you can see it flips back and forth between developer and R&D developer R&D all the way through the conclusion.
+0:39:0.270 --> 0:39:2.520
+Cox, Angelica
+So this is.
+0:39:3.380 --> 0:39:20.170
+Cox, Angelica
+Necessary information that the PIDI team need and they need to track this because they also track their their work and hours, and that's how they plan their capacity as well. So I know that there was a a huge hang up.
+0:39:20.960 --> 0:39:27.290
+Cox, Angelica
+Back then, when we said, well, we can integrate task, can we do without or?
+0:39:28.50 --> 0:39:28.360
+Murphy, Keith
+Here.
+0:39:27.920 --> 0:39:32.80
+Cox, Angelica
+Some something similar and the answer was no because.
+0:39:35.740 --> 0:39:36.100
+Cox, Angelica
+Yeah.
+0:39:31.990 --> 0:39:37.240
+Murphy, Keith
+With some CPI are in here with PIDI working through these tasks OK?
+0:39:37.710 --> 0:39:54.330
+Cox, Angelica
+Yeah. And I will say CPI's not happy about using rally, but because we need their assistance to do this work. It's the PIDI teams requirement that CPI uses rally to submit these work request.
+0:39:54.710 --> 0:39:57.400
+Murphy, Keith
+Could you click into one of those? Just so curious.
+0:39:57.930 --> 0:40:2.650
+Cox, Angelica
+Yeah, I don't think there's much detail. It's really just kind of high level.
+0:40:4.160 --> 0:40:10.880
+DiGennaro, Ioana
+So do you think I know that we we have one more minute and I will I will meet personally. I have to jump on another call.
+0:40:12.590 --> 0:40:20.180
+DiGennaro, Ioana
+Do you think that that it would be useful to set up like another working session to kind of?
+0:40:21.80 --> 0:40:21.590
+DiGennaro, Ioana
+You know.
+0:40:26.860 --> 0:40:27.210
+Murphy, Keith
+Yeah.
+0:40:27.20 --> 0:40:28.250
+Cox, Angelica
+Yeah, no problem.
+0:40:22.380 --> 0:40:35.500
+DiGennaro, Ioana
+Since it it looks like we have a good momentum and thank you so much Angelica, for going yeah, deep into details because we need them in kids it it's so useful for him to have this.
+0:40:35.580 --> 0:40:35.910
+DiGennaro, Ioana
+The.
+0:40:40.840 --> 0:40:41.190
+Cox, Angelica
+Mm-hmm.
