@@ -39,19 +39,24 @@ Dim Result As String
             If Me.lst_Projects.value <> "" Then
                 projnum = Left(Me.lst_Projects.value, InStr(1, Me.lst_Projects.value, "|") - 1)
                 If Left(projnum, 10) = "ETPROJECTS" Then
+                    sBody = ReplaceCarriageReturns(Me.txtBody)
                     If Me.Caption = "Create a new event" Then
                         
                         'SendHTTPEvent returns the ref. number of the new event
-                        Result = SendHTTPEvent(Me.txtSubject, Me.txtBody, projnum, Me.cbo_Assigned.value, Me.DTPicker1.value, Me.cboSetOwner)
                         
+                        Result = SendHTTPEvent(Me.txtSubject, sBody, projnum, Me.cbo_Assigned.value, Me.DTPicker1.value, Me.cboSetOwner)
+                        If Left(Result, 5) = "Error" Then
+                            MsgBox "Error: " & Result
+                        Else
                         'new event number has to be linked to the proj/task it's created for
-                        Result = UpdateCustomObjectLinks(projnum, Result)
+                            Result = UpdateCustomObjectLinks(projnum, Result)
+                        End If
                         
                         
                         Unload Me
                     Else
                         If InStr(1, GetObjectSubject, "ETPROJECTS") = 0 Then ' if no already assigned
-                            Result = SendHTTPPost(Me.txtSubject, Me.txtBody, projnum, Me.cboSetOwner)
+                            Result = SendHTTPPost(Me.txtSubject, sBody, projnum, Me.cboSetOwner)
                         Else
                             MsgBox "It looks like this email is already assigned to a Task - check the subject line", vbCritical
                         End If
@@ -107,6 +112,10 @@ Private Sub txtAttendees_Change()
 
 End Sub
 
+Private Sub txtBody_Change()
+
+End Sub
+
 Private Sub UserForm_Initialize()
 Dim CurrentUser As String
 CurrentUser = GetUserFNameLName()
@@ -158,7 +167,7 @@ With Me.cbo_ProjectStatus
     '.AddItem "On hold"
     '.AddItem "Cancelled"
     '.AddItem "Archive"
-    .value = "Recurring"
+    .value = "In progress"
 End With
 
 

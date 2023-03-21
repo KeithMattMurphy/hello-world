@@ -129,12 +129,18 @@ Function SanitizeEmailBody(sText As String) As String
     SanitizeEmailBody = Replace(sText, Chr(34), " ") ' remove double quotes
     SanitizeEmailBody = Replace(SanitizeEmailBody, Chr(39), " ") ' remove single quotes
     SanitizeEmailBody = Replace(SanitizeEmailBody, Chr(92), " ") ' remove backslashes
-    SanitizeEmailBody = Replace(SanitizeEmailBody, Chr(10), " ") ' remove line breaks
-    SanitizeEmailBody = Replace(SanitizeEmailBody, Chr(13), " ") ' remove carriage returns
+    
+    ' below moved to ReplaceCarriageReturns so user can read it ok and it's posted correctly
+    'SanitizeEmailBody = Replace(SanitizeEmailBody, Chr(10), " ") ' remove line breaks
+    'SanitizeEmailBody = Replace(SanitizeEmailBody, Chr(13), " ") ' remove carriage returns
     SanitizeEmailBody = RemoveNonASCII(SanitizeEmailBody)
 End Function
 
+Function ReplaceCarriageReturns(ByVal inText As String) As String
 
+    ReplaceCarriageReturns = Replace(inText, Chr(10), "<br>") ' remove line breaks
+    ReplaceCarriageReturns = Replace(ReplaceCarriageReturns, Chr(13), "\n") ' remove carriage returns
+End Function
 
 Function GetUserFNameLName() As String
 Dim fName$

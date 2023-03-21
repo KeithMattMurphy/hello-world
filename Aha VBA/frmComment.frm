@@ -34,7 +34,7 @@ End Sub
 Private Sub cmdComment_Click()
 
 
-Result = AddCommentToFeature(Me.txtTask, Me.txtComment)
+Result = AddCommentToFeature(Me.txtTask, ReplaceCarriageReturns(Me.txtComment))
 If Result = "OK" Then
     MsgBox "OK"
     Unload Me
