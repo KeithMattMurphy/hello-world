@@ -2,9 +2,9 @@ VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} frmComment 
    Caption         =   "Add a comment to a task"
    ClientHeight    =   5460
-   ClientLeft      =   120
-   ClientTop       =   465
-   ClientWidth     =   7695
+   ClientLeft      =   210
+   ClientTop       =   795
+   ClientWidth     =   15015
    OleObjectBlob   =   "frmComment.frx":0000
    StartUpPosition =   1  'CenterOwner
 End

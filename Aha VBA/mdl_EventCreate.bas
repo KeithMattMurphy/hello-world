@@ -326,7 +326,7 @@ On Error GoTo errh
          End If
         
          ' Check if the count of each element is the same in both dictionaries (lists)
-         If dict1.item(elem) <> dict2.item(elem) Then
+         If dict1.Item(elem) <> dict2.Item(elem) Then
              CompareLists = "Not OK"
              Exit Function
          End If

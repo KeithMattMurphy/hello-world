@@ -95,6 +95,17 @@ Private Sub Frame1_Click()
 
 End Sub
 
+Private Sub Frame2_Click()
+
+End Sub
+
+Private Sub Frame2_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
+Dim searchStr$, Result$
+searchStr = InputBox("Enter search criteria")
+Result = SearchEpics(searchStr)
+MsgBox Result
+End Sub
+
 Private Sub lst_Projects_Click()
 
 
@@ -102,10 +113,11 @@ End Sub
 
 Private Sub lst_Projects_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
 Dim Command$, sURL$
-sURL = "https://optum.aha.io/epics/" & Left(Me.lst_Projects.value, InStr(1, Me.lst_Projects.value, "|") - 1)
-Command = "cmd /c start " & sURL
-Shell Command, vbHide
-
+If IsNull(Me.lst_Projects.value) = False Then
+    sURL = "https://optum.aha.io/epics/" & Left(Me.lst_Projects.value, InStr(1, Me.lst_Projects.value, "|") - 1)
+    Command = "cmd /c start " & sURL
+    Shell Command, vbHide
+End If
 End Sub
 
 Private Sub txtAttendees_Change()
@@ -345,6 +357,50 @@ End If
 Close #fileHandle
 End Function
 
+Function SearchEpics(ByVal inSearchStr As String) As String
+SearchEpics = "Error"
+
+Dim EpicsFilePath  As String
+Dim fileHandle As Integer
+Dim currentLine As String
+Me.lst_Projects.Clear
+EpicsFilePath = environ("USERPROFILE") & "\Documents\myEpics"
+
+' Open the file for input
+fileHandle = FreeFile()
+Open EpicsFilePath For Input As #fileHandle
+
+' Read the file line by line
+Do While Not EOF(fileHandle)
+    Line Input #fileHandle, currentLine
+    
+'    pos1 = InStr(1, currentLine, "|")
+'    pos2 = InStr(pos1 + 1, currentLine, "|")
+'    pos3 = InStr(pos2, currentLine, "|")
+'    If pos1 > 0 Then
+'        If Mid(currentLine, 1, pos1 - 1) = inUser Then
+'            If Mid(currentLine, pos1 + 1, pos2 - pos1 - 1) = inStatus Then
+            If InStr(1, UCase(currentLine), UCase(inSearchStr)) > 0 Then
+                With Me.lst_Projects
+                    .AddItem Mid(currentLine, pos2 + 1, 100)
+                End With
+                'Debug.Print currentLine
+            End If
+'            End If
+'        End If
+'    End If
+    
+    
+Loop
+
+
+
+errh:
+If Err.Description <> "" Then
+    MsgBox Err.Description
+End If
+Close #fileHandle
+End Function
 
 Function GetRelease(ByVal inDate As Date) As String
 GetReleases = "Error"
