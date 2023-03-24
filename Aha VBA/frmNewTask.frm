@@ -374,8 +374,8 @@ Open EpicsFilePath For Input As #fileHandle
 Do While Not EOF(fileHandle)
     Line Input #fileHandle, currentLine
     
-'    pos1 = InStr(1, currentLine, "|")
-'    pos2 = InStr(pos1 + 1, currentLine, "|")
+    pos1 = InStr(1, currentLine, "|")
+    pos2 = InStr(pos1 + 1, currentLine, "|")
 '    pos3 = InStr(pos2, currentLine, "|")
 '    If pos1 > 0 Then
 '        If Mid(currentLine, 1, pos1 - 1) = inUser Then
@@ -398,6 +398,8 @@ Loop
 errh:
 If Err.Description <> "" Then
     MsgBox Err.Description
+Else
+    SearchEpics = "OK"
 End If
 Close #fileHandle
 End Function

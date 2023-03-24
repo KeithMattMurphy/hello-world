@@ -23,7 +23,7 @@ Dim sBody As String
 
 sTask = GetTaskNumFromSubject()
 
-sBody = SanitizeEmailBody(Left(GetObjectBody(), 500))
+sBody = SanitizeEmailBody(Left(GetObjectBody(), 800))
 
 Me.txtTask = sTask
 Me.txtComment = sBody
