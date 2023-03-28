@@ -50,6 +50,7 @@ Dim Result As String
                         Else
                         'new event number has to be linked to the proj/task it's created for
                             Result = UpdateCustomObjectLinks(projnum, Result)
+                            Result = AddCommentToFeature(projnum, "New event assigned to: " & Me.cbo_Assigned.value & " - " & Me.txtSubject, "NoEmailUpdate")
                         End If
                         
                         
@@ -91,19 +92,30 @@ End Sub
 
 
 
-Private Sub Frame1_Click()
+Private Sub cmdCancel_Click()
+Unload Me
+End Sub
+
+Private Sub CommandButton1_Click()
 
 End Sub
 
-Private Sub Frame2_Click()
-
-End Sub
-
-Private Sub Frame2_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
+Private Sub cmdSearch_Click()
 Dim searchStr$, Result$
 searchStr = InputBox("Enter search criteria")
 Result = SearchEpics(searchStr)
-MsgBox Result
+If Result <> "OK" Then
+    MsgBox Result
+End If
+End Sub
+
+
+
+Private Sub Frame2_DblClick(ByVal Cancel As MSForms.ReturnBoolean)
+'Dim searchStr$, Result$
+'searchStr = InputBox("Enter search criteria")
+'Result = SearchEpics(searchStr)
+'MsgBox Result
 End Sub
 
 Private Sub lst_Projects_Click()
@@ -350,7 +362,7 @@ Loop
 
 
 
-errh:
+errH:
 If Err.Description <> "" Then
     MsgBox Err.Description
 End If
@@ -395,7 +407,7 @@ Loop
 
 
 
-errh:
+errH:
 If Err.Description <> "" Then
     MsgBox Err.Description
 Else
@@ -436,7 +448,7 @@ Loop
 Done:
 GetReleases = "OK"
 
-errh:
+errH:
 Close #fileHandle
 End Function
 

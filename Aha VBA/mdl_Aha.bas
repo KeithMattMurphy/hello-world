@@ -138,8 +138,8 @@ End Function
 
 Function ReplaceCarriageReturns(ByVal inText As String) As String
 
-    ReplaceCarriageReturns = Replace(inText, Chr(10), "<br>") ' remove line breaks
-    ReplaceCarriageReturns = Replace(ReplaceCarriageReturns, Chr(13), "\n") ' remove carriage returns
+    ReplaceCarriageReturns = Replace(inText, Chr(10), "") ' remove line breaks
+    ReplaceCarriageReturns = Replace(ReplaceCarriageReturns, Chr(13), "<br>") ' remove carriage returns
 End Function
 
 Function GetUserFNameLName() As String
@@ -190,7 +190,7 @@ Function RemoveNonASCII(str As String) As String
 End Function
 Function UpdateAppointmentSubject(ByVal inTaskOrProjNum) As String
 UpdateAppointmentSubject = "Error"
-On Error GoTo errh:
+On Error GoTo errH:
 Dim olApp As Outlook.Application
 Dim objItem As Object
 Dim objMeeting As Outlook.MeetingItem
@@ -224,7 +224,7 @@ FeaturePos = InStr(1, objItem.Subject, "https://optum.aha.io/")
 
 UpdateAppointmentSubject = "OK"
 Exit Function
-errh:
+errH:
     If Err.Description <> "" Then
         MsgBox Err.Description
     End If
@@ -292,7 +292,7 @@ End If
 End Function
 
 
-Function AddCommentToFeature(ByVal inFeature As String, ByVal InComment) As String
+Function AddCommentToFeature(ByVal inFeature As String, ByVal InComment, Optional ByVal inSource As String) As String
     AddCommentToFeature = "Error"
     Dim jsonStr As String
     Dim jsonObj As Object
@@ -300,8 +300,14 @@ Function AddCommentToFeature(ByVal inFeature As String, ByVal InComment) As Stri
     Dim sURL As String
     Dim sSubject As String
     Dim sBody As String
+    AddCommentToFeature = "Error"
+    On Error GoTo errH:
     
-    sURL = "https://optum.aha.io/api/v1/features/" & inFeature & "/comments"
+    If Left(inFeature, 12) = "ETPROJECTS-E" Then
+        sURL = "https://optum.aha.io/api/v1/epics/" & inFeature & "/comments"
+    Else
+        sURL = "https://optum.aha.io/api/v1/features/" & inFeature & "/comments"
+    End If
         
     apiKey = environ("ETL_Aha_API_Key")
     Bearer = "Bearer " + apiKey
@@ -337,13 +343,22 @@ Function AddCommentToFeature(ByVal inFeature As String, ByVal InComment) As Stri
     If InStr(1, Left(sresponse, 20), "error") > 0 Then
         AddCommentToFeature = "Error: " & sresponse
     Else
-        If UpdateEmailSubject(inFeature) = "OK" Then
-            AddCommentToFeature = "OK"
+        If inSource = "" Then
+            If UpdateEmailSubject(inFeature) = "OK" Then
+                AddCommentToFeature = "OK"
+            Else
+                AddCommentToFeature = "Comment not added " & sresponse
+            End If
         Else
-            AddCommentToFeature = "Comment not added " & sresponse
+            AddCommentToFeature = "OK"
         End If
     End If
-    Debug.Print (sresponse)
+'    Debug.Print (sresponse)
+errH:
+    If Err.Description <> "" Then
+        AddCommentToFeature = AddCommentToFeature & Err.Description
+    
+    End If
 End Function
 
 
@@ -366,7 +381,7 @@ ts.Close
 
 End Function
 
-Sub TEST()
+Sub test()
 
 
 End Sub
@@ -388,7 +403,7 @@ Set fs = CreateObject("Scripting.FileSystemObject")
 
 Dim ts As Object
 Set ts = fs.CreateTextFile(EpicsFilePath, True)
-On Error GoTo errh:
+On Error GoTo errH:
 
 apiKey = environ("ETL_Aha_API_Key")
 Bearer = "Bearer " + apiKey
@@ -432,7 +447,7 @@ Wend
 
 
 Result = "Projects Refreshed"
-errh:
+errH:
     ts.Close
     MsgBox Result
 End Sub
@@ -457,7 +472,7 @@ Set fs = CreateObject("Scripting.FileSystemObject")
 
 Dim ts As Object
 Set ts = fs.CreateTextFile(ReleasesFilePath, True)
-On Error GoTo errh:
+On Error GoTo errH:
 
 apiKey = environ("ETL_Aha_API_Key")
 Bearer = "Bearer " + apiKey
@@ -501,7 +516,7 @@ Wend
 
 
 Result = "Releases Refreshed"
-errh:
+errH:
     ts.Close
     MsgBox Result
 End Sub
@@ -511,7 +526,7 @@ Function GetAppointmentDate() As String
     Dim objMeeting As Outlook.MeetingItem
     Dim objAppointment As Outlook.AppointmentItem
     GetAppointmentDate = "Something went wrong with GetAppointmentDate"
-    On Error GoTo errh:
+    On Error GoTo errH:
     'Set objApp = CreateObject("Outlook.Application")
     'Set objItem = objApp.ActiveExplorer.Selection(1)
     
@@ -530,7 +545,7 @@ Function GetAppointmentDate() As String
     Set objMeeting = Nothing
     Set objAppointment = Nothing
     
-errh:
+errH:
     If Err.Description <> "" Then
         GetAppointmentDate = GetAppointmentDate & Err.Description
     End If
@@ -546,7 +561,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
     Dim strAttendees As String, strEmails As String
     Dim objAttendee As Outlook.Recipient
     ListAttendees = "Something went wrong getting attendees"
-    On Error GoTo errh:
+    On Error GoTo errH:
     'Set objApp = CreateObject("Outlook.Application")
     'Set objItem = objApp.ActiveExplorer.Selection(1)
     
@@ -593,7 +608,7 @@ Function ListAttendees(Optional ByRef inEmails As Variant) As String
     Set objItem = Nothing
     Set objMeeting = Nothing
     
-errh:
+errH:
     If Err.Description = "" Then
         ListAttendees = strAttendees
     Else

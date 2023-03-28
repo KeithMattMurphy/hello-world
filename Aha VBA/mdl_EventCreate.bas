@@ -19,7 +19,7 @@ Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceN
     Dim sAttendees$
     
     SendHTTPEvent = "Error"
-    On Error GoTo errh:
+    On Error GoTo errH:
     
     If Left(inReferenceNum, 10) = "ETPROJECTS" Then
         If Left(inReferenceNum, 12) = "ETPROJECTS-E" Then
@@ -29,7 +29,7 @@ Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceN
         End If
     Else
         SendHTTPEvent = "Invalid Project or Task Number provided"
-        GoTo errh:
+        GoTo errH:
     End If
     
     
@@ -82,7 +82,7 @@ Function SendHTTPEvent(inSubject As String, inBody As String, ByVal inReferenceN
 '    End If
     'Debug.Print (sresponse)
     
-errh:
+errH:
 If Err.Description <> "" Then
     SendHTTPEvent = SendHTTPEvent & " | " & Err.Description
 
@@ -96,6 +96,7 @@ Function GetRecord(ByVal apiKey As String, ByVal recordType As String, ByVal rec
     Dim url As String
     Dim cleanedJson As String
     url = "https://optum.aha.io/api/v1/" & recordType & "s/" & recordID & "?fields=custom_object_links,reference_num"
+    Debug.Print url
     
     With http
         .Open "GET", url, False
@@ -119,7 +120,8 @@ Function UpdateRecord(ByVal apiKey As String, ByVal recordType As String, ByVal 
     Dim url As String
     Dim cleanedJson As String
     Dim jsonObj As Object
-    url = "https://optum.aha.io/api/v1/" & recordType & "s/" & recordID
+    'Changed url to return only links and ref num - exclude description
+    url = "https://optum.aha.io/api/v1/" & recordType & "s/" & recordID & "?fields=custom_object_links,reference_num"
  
     Debug.Print url & vbCrLf & updatedData
     
@@ -213,7 +215,7 @@ Function UpdateCustomObjectLinks(ByVal recordID As String, ByVal newCustomObject
         End If
     Else
         UpdateCustomObjectLinks = "Invalid Project or Task Number provided"
-        GoTo errh:
+        GoTo errH:
     End If
     
     'recordID = "ETPROJECTS-3825"
@@ -264,14 +266,14 @@ Function UpdateCustomObjectLinks(ByVal recordID As String, ByVal newCustomObject
     ConfirmedCustomObjectLinks = ConfirmedCustomObjectLinks & "]"
     'check if every item in both
     
-    If CompareLists(updatedCustomObjectLinks, ConfirmedCustomObjectLinks) = "OK" Then
+    If CompareLists(Replace(Replace(updatedCustomObjectLinks, "[", ""), "]", ""), Replace(Replace(ConfirmedCustomObjectLinks, "[", ""), "]", "")) = "OK" Then
         If UpdateAppointmentSubject(recordID) <> "OK" Then
             MsgBox "OK - event created & linked but Appointment subject not updated "
         End If
     Else
         MsgBox "An issue has occured linking the event to your project/task. Please take a screenshot & email to your admin. updatedCustomObjectLinks:" & updatedCustomObjectLinks & " ConfirmedCustomObjectLinks: " & ConfirmedCustomObjectLinks
     End If
-errh:
+errH:
     If Err.Description <> "" Then
         UpdateCustomObjectLinks = UpdateCustomObjectLinks & " | " & Err.Description
     Else
@@ -291,7 +293,7 @@ CompareLists = "Error"
     Dim dict1 As Object
     Dim dict2 As Object
     Dim elem As Variant
-On Error GoTo errh
+On Error GoTo errH
     ' Convert string parameters to arrays
     list1 = Split(strList1, ",")
     list2 = Split(strList2, ",")
@@ -334,10 +336,8 @@ On Error GoTo errh
      
      CompareLists = "OK"
      Exit Function
-errh:
+errH:
 End Function
-
-
 
 
 
@@ -345,36 +345,38 @@ End Function
 
 Function GetExistingLinks(ByVal inObject As Dictionary) As String
     Dim existingCustomObjectLinks As String
-    On Error GoTo errh:
+    On Error GoTo errH:
 'Dim customrecordlink As Object
 'Dim ID As Object
 
 existingCustomObjectLinks = "Error"
     existingCustomObjectLinks = "["
     'if no existing links will error out to end
-    For Each customrecordlink In inObject("custom_object_links")
-        If customrecordlink("key") = "events" Then
-            For Each ID In customrecordlink("record_ids")
+    'If customrecordlink <> Null Then
+        For Each customrecordlink In inObject("custom_object_links")
+            If customrecordlink("key") = "events" Then
+                For Each ID In customrecordlink("record_ids")
+                    
+                    If existingCustomObjectLinks <> "[" Then
+                        existingCustomObjectLinks = existingCustomObjectLinks & ","
+                    End If
+                    existingCustomObjectLinks = existingCustomObjectLinks & """" & CStr(ID) & """"
+                Next ID
                 
-                If existingCustomObjectLinks <> "[" Then
-                    existingCustomObjectLinks = existingCustomObjectLinks & ","
-                End If
-                existingCustomObjectLinks = existingCustomObjectLinks & """" & CStr(ID) & """"
-            Next ID
-            
-'Add the new event link
-
-            Debug.Print existingCustomObjectLinks
-            
-            '****** don't close brackets here - needs to be closed from calling funciton
-            '****** after adding the new link to the list
-            'existingCustomObjectLinks = existingCustomObjectLinks & "]"
-
-        End If
-    Next customrecordlink
+    'Add the new event link
+    
+                Debug.Print existingCustomObjectLinks
+                
+                '****** don't close brackets here - needs to be closed from calling funciton
+                '****** after adding the new link to the list
+                'existingCustomObjectLinks = existingCustomObjectLinks & "]"
+    
+            End If
+        Next customrecordlink
+    'End If
     
     
-errh:
+errH:
 If Err.Description <> "" Then
     MsgBox Err.Description
 End If
@@ -510,5 +512,130 @@ Sub InitiateAuthorizationRequest()
     Shell "cmd /c start " & authUrl
     
 End Sub
+Sub test()
+MsgBox CheckOutlookCalendar
+End Sub
+
+
+Function CheckOutlookCalendar() As Double
+    Dim olApp As Outlook.Application
+    Dim olNamespace As Outlook.NameSpace
+    Dim olFolder As Outlook.Folder
+    Dim olItems As Outlook.Items
+    Dim olAppt As Outlook.AppointmentItem
+    Dim olStart As Date
+    Dim olEnd As Date
+    Dim TotalHours As Double
+    
+    Set olApp = New Outlook.Application
+    Set olNamespace = olApp.GetNamespace("MAPI")
+    Set olFolder = olNamespace.GetDefaultFolder(olFolderCalendar)
+    Set olItems = olFolder.Items
+    
+    olStart = Date + 7 - Weekday(Date, vbMonday) + TimeValue("08:00:00")
+    olEnd = olStart + 7 + TimeValue("17:00:00")
+    
+    TotalHours = 0
+    
+    For Each olAppt In olItems
+        If olAppt.Start >= olStart And olAppt.Start <= olEnd Then
+            TotalHours = TotalHours + (olAppt.Duration / 60)
+        End If
+    Next olAppt
+    
+    CheckOutlookCalendar = TotalHours
+End Function
+
+
+Sub FindAvailableSlots()
+    Dim objItem As Object
+    Dim olMail As MailItem
+    
+    Dim objAppointment As Outlook.AppointmentItem
+        
+    
+    Set objItem = Application.ActiveInspector.CurrentItem
+    Set objAppointment = objItem
+    
+    MsgBox FindAvailableMeetingTimes(objAppointment, 30, False)
+
+
+    
+End Sub
+
+
+Public Function FindAvailableMeetingTimes(MeetingItem As Outlook.AppointmentItem, _
+                                          MeetingDuration As Long, _
+                                          ConsiderTentative As Boolean) As Collection
+' Outlook.MeetingItem
+    Dim FreeBusyResults As Collection
+    Set FreeBusyResults = New Collection
+    
+    
+    Dim i As Integer
+    
+    Dim Recipients As Outlook.Recipients
+    Set Recipients = MeetingItem.Recipients
+    
+    Dim StartTime As Date
+    StartTime = MeetingItem.Start
+    
+    Dim EndTime As Date
+    EndTime = DateAdd("d", 7, StartTime)
+    
+    Dim TimeInterval As Date
+    TimeInterval = DateAdd("n", MeetingDuration, 0)
+    
+    Dim CurrentTime As Date
+    CurrentTime = StartTime
+    
+    Dim AllAttendeesFree As Boolean
+    AllAttendeesFree = True
+    
+    Debug.Print Recipients.Count
+    
+    Dim FreeBusyStatus(20) As String
+    i = -1
+    While CurrentTime < EndTime
+        For Each Recipient In Recipients
+            i = i + 1
+        'this returns 1 char for each period from midnight on the date provided for 1 month
+        'e.g. if you pass 30 mins you get a string with around 1394 chars
+        'if you pass 60 mins it's half the length
+        Debug.Print Recipient.DisplayType
+            FreeBusyStatus(i) = Recipient.FreeBusy(CurrentTime, MeetingDuration, True)
+            
+'            If (FreeBusyStatus = olFree) Or (ConsiderTentative And FreeBusyStatus = olTentative) Then
+'                AllAttendeesFree = AllAttendeesFree And True
+'            Else
+'                AllAttendeesFree = False
+'                Exit For
+'            End If
+        Next Recipient
+        
+        If AllAttendeesFree Then
+            FreeBusyResults.Add CurrentTime
+        End If
+        
+        AllAttendeesFree = True
+        CurrentTime = DateAdd("n", MeetingDuration, CurrentTime)
+    Wend
+    
+    Set FindAvailableMeetingTimes = FreeBusyResults
+End Function
+
+
+Sub test222()
+Dim l(2) As String
+l(0) = "test"
+
+
+
+
+For Each Item In l
+    Debug.Print Item
+Next Item
+End Sub
+
 
 
