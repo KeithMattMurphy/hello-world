@@ -1,0 +1,35 @@
+Public WithEvents myInspectors As Outlook.Inspectors
+Public WithEvents myInspector As Outlook.Inspector
+Public myRibbon As IRibbonUI
+
+Private Sub Application_Startup()
+    Set myInspectors = Application.Inspectors
+End Sub
+
+Private Sub myInspectors_NewInspector(ByVal Inspector As Inspector)
+    If Inspector.CurrentItem.Class = olMail Then
+        Set myInspector = Inspector
+    End If
+End Sub
+
+Private Sub myInspector_Activate()
+    If Not myRibbon Is Nothing Then
+        myRibbon.InvalidateControl "customButton"
+    End If
+End Sub
+
+Public Sub Ribbon_Load(ribbon As IRibbonUI)
+    Set myRibbon = ribbon
+End Sub
+
+Public Sub GetVisible(control As IRibbonControl, ByRef returnedVal)
+    If myInspector Is Nothing Then
+        returnedVal = False
+    Else
+        returnedVal = True
+    End If
+End Sub
+
+Public Sub OnCustomButtonClick(control As IRibbonControl)
+    MsgBox "Custom button clicked!", vbInformation, "Aha"
+End Sub
