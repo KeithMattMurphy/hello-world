@@ -15,6 +15,7 @@ Private Sub myInspectors_NewInspector(ByVal Inspector As Inspector)
         If Not myRibbon Is Nothing Then
             myRibbon.InvalidateControl "x1:AhaDirect.OpenAhaDirectLink_0_C171A50"
         End If
+        ExecuteMyFunction ' Call your custom function when an email is opened
     End If
 End Sub
 
@@ -24,4 +25,8 @@ End Sub
 
 Sub GetAhaButtonVisible(control As IRibbonControl, ByRef returnedVal)
     returnedVal = AhaButtonVisible
+End Sub
+
+Sub ExecuteMyFunction()
+    ' Add your custom code here to execute when an email is opened
 End Sub
