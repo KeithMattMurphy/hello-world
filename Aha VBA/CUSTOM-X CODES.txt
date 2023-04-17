@@ -1,0 +1,33 @@
+Sub CreateEmailWithCustomXHeader()
+    Dim objMail As Outlook.MailItem
+    Dim objPropertyAccessor As Outlook.PropertyAccessor
+    Dim strXHeaderName As String
+    Dim strXHeaderValue As String
+
+    ' Create a new mail item
+    Set objMail = Application.CreateItem(olMailItem)
+
+    ' Set the PropertyAccessor object
+    Set objPropertyAccessor = objMail.PropertyAccessor
+
+    ' Define the custom X-Header name and value
+    strXHeaderName = "X-Custom-Link"
+    strXHeaderValue = "https:\\something.com"
+
+    ' Add the custom X-Header to the mail item
+    objPropertyAccessor.SetProperty "http://schemas.microsoft.com/mapi/string/{00020386-0000-0000-C000-000000000046}/" & strXHeaderName, strXHeaderValue
+
+    ' Add other mail item properties (subject, body, etc.)
+    With objMail
+        .Subject = "Email with custom X-Header"
+        .Body = "This email contains a custom X-Header."
+        ' Add recipients and other properties as needed
+    End With
+
+    ' Display the email (change .Display to .Send to send it immediately)
+    objMail.Display
+
+    ' Clean up
+    Set objPropertyAccessor = Nothing
+    Set objMail = Nothing
+End Sub
