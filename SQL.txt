@@ -1,0 +1,435 @@
+USE [crnd_aha_report_dev]
+GO
+
+/****** Object:  StoredProcedure [aha_reporting_v1].[crd_aha_closure_report]    Script Date: 26/04/2023 08:16:25 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE procedure [aha_reporting_v1].[crd_aha_closure_report] as 
+
+BEGIN
+
+SET NOCOUNT ON ;
+
+
+-- TAT calcs below this --------------
+
+-- bring in the start date and the end dates from PAWS! 
+
+select 		paws_id, 
+			tat_start_date, 
+			tat_close_date, 
+			net_days week_days, 
+			gross_days total_days, 
+			case when analytic_triage_work_status like '%Closed%' then 'Completed in PAWS' else 'Not Completed in PAWS' end paws_status
+into 		#paws_tat
+from 		crnd_aha_report_dev.aha_reporting_v1.crd_paws_tat 
+
+
+
+select 		concept_id, 
+			pdc_paws_intake_id, 
+			concept_status, 
+			concept_assigned_to, 
+			concept_created_at,
+			concept_created_by,
+			status_changed_to_concept_drafts,
+			status_changed_to_analysis_inventory,
+			status_changed_to_analysis_in_progress,
+			status_changed_to_socialization,
+			status_changed_to_approval,
+			status_changed_to_complete,
+			status_changed_to_cancelled
+into 		#aha_tat
+from 		crnd_aha_report_dev.aha_reporting_v1.crd_picog_concept
+where 		concept_status in ('Cancelled', 'Complete')  ; 
+
+
+
+select 		*, 
+			isnull(status_changed_to_analysis_in_progress, isnull(status_changed_to_analysis_inventory, isnull(status_changed_to_concept_drafts, concept_created_at))) tat_start_date_aha,
+			case when concept_status in ('Complete') 
+					then status_changed_to_complete
+				 else status_changed_to_cancelled 
+			end tat_end_date_aha,
+			case when concept_assigned_to in ('Celine Visingardi', 'Diane Faraone', 'Joshua Decker', 'Sheila Brastad', 'Shelly Laprince', 'Di Wang', 'Jessica Lindquist') 
+				then 'Medical RX' 
+				else 'Non Medical RX' 
+			end team,
+			case when concept_created_by = 'Nitin Pandey' then 'Migrated' else 'Manual' end concept_type
+into 		#mix
+from 		#aha_tat a
+left join 	#paws_tat p on ltrim(rtrim(substring(a.pdc_paws_intake_id, 1, 5))) = cast(p.paws_id as varchar)  ; 
+
+
+
+select 		*,
+			case when concept_type = 'Migrated' and tat_end_date_aha > tat_close_date and tat_end_date_aha = cast(concept_created_at as date) then 'Use Paws tat only'
+				 when paws_id is null then 'Use Aha tat only'
+				 else 'Use Paws and Aha Tat' end tat_type  
+into 		#report				 
+from 		#mix ; 
+
+
+
+select 		distinct concept_id, 
+			pdc_paws_intake_id,
+			concept_status, 
+			concept_assigned_to, 
+			tat_start_date tat_start_date_paws, 
+			tat_close_date tat_close_date_paws, 
+			week_days net_days_paws, 
+			total_days gross_days_paws,
+			status_changed_to_concept_drafts,
+			status_changed_to_analysis_inventory,
+			status_changed_to_analysis_in_progress,
+			status_changed_to_socialization,
+			status_changed_to_approval,
+			status_changed_to_complete,
+			status_changed_to_cancelled,
+			tat_start_date_aha,
+			tat_end_date_aha,
+			case when tat_type = 'Use Aha tat only' then tat_start_date_aha 
+				 else tat_start_date end tat_start_date, 
+			case when tat_type = 'Use PAWS tat only' then tat_close_date 
+				 else tat_end_date_aha end tat_end_date,
+			tat_type
+into 		#tat_2
+from 		#report ; 
+
+
+
+select 		*,
+			case when (DATEDIFF(dd, tat_start_date, tat_end_date) + 1)
+			 			- (DATEDIFF(wk, tat_start_date, tat_end_date) * 2)
+						- (CASE WHEN DATENAME(dw, tat_start_date) = 'Sunday' THEN 1 ELSE 0 END)
+			  		 	- (CASE WHEN DATENAME(dw, tat_end_date) = 'Saturday' THEN 1 ELSE 0 END) = '0' then '1' 
+  			 	 else (DATEDIFF(dd, tat_start_date, tat_end_date) + 1)
+			 			- (DATEDIFF(wk, tat_start_date, tat_end_date) * 2)
+			 			- (CASE WHEN DATENAME(dw, tat_start_date) = 'Sunday' THEN 1 ELSE 0 END)
+  			 			- (CASE WHEN DATENAME(dw, tat_end_date) = 'Saturday' THEN 1 ELSE 0 END) end week_days, 
+  			 case when DATEDIFF(dd, tat_start_date, tat_end_date) = '0' then '1' 
+  			 	  else DATEDIFF(dd, tat_start_date, tat_end_date) end total_days
+into 		#tat
+from 		#tat_2 ; 
+
+
+-- TAT calcs finished --------------
+
+
+
+
+------- below this is the in year calcs ---------------------------------------
+
+
+
+select  	concept_id, 
+			initial_value_stream, 
+			link_between_instances = o.[value] 
+into 		#initial_value_stream_prep
+from 		crnd_aha_report_dev.aha_reporting_v1.crd_picog_concept c
+cross apply [aha_reporting_v1].[fn_split_string_to_column](c.initial_value_stream, ',') o ; 
+
+
+
+select 		*, 
+			rank() over (partition by concept_id order by link_between_instances) rank 
+into 		#initial_value_stream
+from 		#initial_value_stream_prep ; 
+
+
+
+select 		c.concept_id,
+			s.solution_id, 
+			c.concept_id + '-' + isnull(s.solution_id, '1111111111111111111') crd_concept_solution_id, 
+			s.oea_use_only estimated_refer_date, 
+			dateadd(month, v.months_to_referral, s.oea_use_only) est_deployment_date,
+			cast(DATEADD(yy, DATEDIFF(yy, 0, dateadd(month, v.months_to_referral, s.oea_use_only) ) + 1, -1) as date) last_day_of_year,
+			s.savings_aao, 
+			s.savings_hao
+into 		#crd_data 
+from 		crnd_aha_report_dev.aha_reporting_v1.crd_picog_concept c
+left join 	crnd_aha_report_dev.aha_reporting_v1.solution_final s on c.concept_id = s.concept_id
+left join 	(select 	concept_id, 
+						link_between_instances initial_value_stream
+			 from 		#initial_value_stream where rank = '1') i on c.concept_id = i.concept_id 
+left join 	crnd_aha_report_dev.aha_reporting_v1.value_stream_est_referral v on isnull(s.value_stream, i.initial_value_stream) = v.value_stream
+where 		substring(s.refer_yes_no, 1, 3) = 'Yes'
+and 		s.oea_use_only is not null 
+union all 
+select 		c.concept_id,
+			s.solution_id, 
+			c.concept_id + '-' + isnull(s.solution_id, '1111111111111111111') crd_concept_solution_id, 
+			isnull(c.target_refer_month_date, case when concept_status = 'Cancelled' then status_changed_to_cancelled else null end) estimated_refer_date,
+			dateadd(month, v.months_to_referral, isnull(c.target_refer_month_date, case when concept_status = 'Cancelled' then status_changed_to_cancelled else null end)) est_deployment_date,
+			cast(DATEADD(yy, DATEDIFF(yy, 0, dateadd(month, v.months_to_referral, isnull(c.target_refer_month_date, case when concept_status = 'Cancelled' then status_changed_to_cancelled else null end))) + 1, -1) as date) last_day_of_year,
+			s.savings_aao, 
+			s.savings_hao
+from 		crnd_aha_report_dev.aha_reporting_v1.crd_picog_concept c
+left join 	crnd_aha_report_dev.aha_reporting_v1.solution_final s on c.concept_id = s.concept_id
+left join 	(select 	concept_id, 
+						link_between_instances initial_value_stream
+			 from 		#initial_value_stream where rank = '1') i on c.concept_id = i.concept_id 
+left join 	crnd_aha_report_dev.aha_reporting_v1.value_stream_est_referral v on isnull(s.value_stream, i.initial_value_stream) = v.value_stream
+where 		s.oea_use_only is null 
+union all 
+select 		c.concept_id,
+			s.solution_id, 
+			c.concept_id + '-' + isnull(s.solution_id, '1111111111111111111') crd_concept_solution_id, 
+			s.oea_use_only estimated_refer_date, 
+			dateadd(month, v.months_to_referral, s.oea_use_only) est_deployment_date,
+			cast(DATEADD(yy, DATEDIFF(yy, 0, dateadd(month, v.months_to_referral, s.oea_use_only)) + 1, -1) as date) last_day_of_year,
+			s.savings_aao, 
+			s.savings_hao
+from 		crnd_aha_report_dev.aha_reporting_v1.crd_picog_concept c
+left join 	crnd_aha_report_dev.aha_reporting_v1.solution_final s on c.concept_id = s.concept_id
+left join 	(select 	concept_id, 
+						link_between_instances initial_value_stream
+			 from 		#initial_value_stream where rank = '1') i on c.concept_id = i.concept_id 
+left join 	crnd_aha_report_dev.aha_reporting_v1.value_stream_est_referral v on isnull(s.value_stream, i.initial_value_stream) = v.value_stream
+where 		s.oea_use_only is not null 
+and 		substring(isnull(s.refer_yes_no, 'No'), 1, 3) != 'Yes' ; 
+
+
+
+
+select 		concept_id, 
+			link_between_instances = o.[value] 
+into 		#solution_key			
+from 		crnd_aha_report_dev.aha_reporting_v1.prop p 
+cross apply [aha_reporting_v1].[fn_split_string_to_column](p.pdc_solution_id, ';') o
+where 		pdc_solution_id is not null ; 
+
+------------------------------------------
+
+select 		p.concept_id prop_concept_id, 
+			p.pdc_solution_id,
+			k.link_between_instances,
+			cast(DATEADD(yy, DATEDIFF(yy, 0, case when p.concept_status = 'Closed' then isnull(p.concept_status_changed_to_closed, p.concept_due_date)
+				 when p.concept_status = 'Deployed' then isnull(p.concept_status_changed_to_deployed, p.concept_due_date)
+				 else p.concept_due_date end) + 1, -1) as date) last_day_of_year_prop,
+			case when p.concept_status = 'Closed' then isnull(p.concept_status_changed_to_closed, p.concept_due_date)
+				 when p.concept_status = 'Deployed' then isnull(p.concept_status_changed_to_deployed, p.concept_due_date)
+				 else p.concept_due_date end manipulated_deployment_date			
+into 		#prop_data
+from 		crnd_aha_report_dev.aha_reporting_v1.prop p  
+left join 	#solution_key k on p.concept_id = k.concept_id
+where 		year(isnull(p.concept_due_date, '2020/01/01')) >= '2018' 
+and 		year(isnull(p.concept_due_date, '2020/01/01'))  <= '2021' ; 
+
+
+
+select 		*, 
+			round(case when c.solution_id is null then '0'
+				 	   when year(c.estimated_refer_date) = year(p.manipulated_deployment_date)
+				 			then isnull(c.savings_hao, 0) + ((isnull(c.savings_aao, 0) * datediff(day, p.manipulated_deployment_date, p.last_day_of_year_prop)) / 365.25)
+					   when p.manipulated_deployment_date is null and year(c.est_deployment_date) = year(c.estimated_refer_date) 
+				 			then isnull(c.savings_hao, 0) + ((isnull(c.savings_aao, 0) * datediff(day, c.est_deployment_date, c.last_day_of_year)) / 365.25)
+					   else 0 end, 2) in_year_value_crd
+into 		#in_year_pre
+from 		#crd_data c 
+left join 	#prop_data p on c.crd_concept_solution_id = p.link_between_instances ; 
+
+
+
+
+select 		solution_id,
+			count(concept_id) counts
+into 		#crd_count
+from 		#in_year_pre
+group by 	solution_id ; 
+
+
+
+select 		i.concept_id,	
+			i.solution_id,	
+			sum(round(cast((i.in_year_value_crd / c.counts) as float),2)) in_year_value_crd
+into 		#in_year
+from 		#in_year_pre i 
+left join 	#crd_count c on i.solution_id = c.solution_id 
+group by 	i.concept_id,	
+			i.solution_id
+
+			
+----------------- In Year Calcs over -------------------------------------------------------------------------------
+
+Select a.* into #old_output from
+(
+select 	distinct	c.concept_id, 
+			c.concept_name, 
+			c.pdc_paws_intake_id,
+			c.concept_status, 
+			c.concept_assigned_to ideator, 
+			c.analyst,
+			c.concept_created_at,
+			c.concept_type, 
+			c.concept_origin,
+			c.approval_requirements,
+			c.compliance_and_regulatory_type, 
+			c.concept_cancellation_category,
+			c.specialty_type,
+			c.crd_claim_type,
+			s.value_stream, 
+			s.client, 
+			s.claims_platform,
+			s.facility_or_professional,
+			s.value_stream_ref,
+			case when s.client like '%ASO%' then 'ASO'
+				 when s.value_stream = 'R&V Tip' then 'R&V Tip'
+				 else 'Fully Insured' end line_of_business,
+			s.refer_yes_no,
+			isnull(s.refer_yes_no, 'No - ' + c.concept_cancellation_category) cancellation_reason, 
+			case when c.concept_status = 'Cancelled' then isnull(s.oea_use_only, c.status_changed_to_cancelled)
+				 else s.oea_use_only end closure_date,
+			s.oea_use_only,
+			s.savings_aao,
+			s.savings_hao,
+			s.solution_id,
+			s.outcome_comment, --added by JJ
+			i.in_year_value_crd,
+			t.week_days,
+			t.total_days,
+			t.tat_start_date, 
+			t.tat_end_date, 
+			c.status_changed_to_analysis_in_progress,
+			c.status_changed_to_socialization,
+			c.status_changed_to_approval,
+			c.status_changed_to_complete,
+			c.vbpr_instructions,
+			c.policy_requirement,	
+			c.load_date,
+			c.Refer_to_PayPol_Process
+from 		crnd_aha_report_dev.aha_reporting_v1.crd_picog_concept c 
+left join 	crnd_aha_report_dev.aha_reporting_v1.solution_final s on c.concept_id = s.concept_id 
+left join 	#tat t on c.concept_id = t.concept_id 
+left join 	#in_year i on c.concept_id = i.concept_id and s.solution_id = i.solution_id
+where 		/*(s.refer_yes_no is not null or c.concept_cancellation_category is not null) 
+and */		case when c.concept_status = 'Cancelled' then isnull(s.oea_use_only, c.status_changed_to_cancelled)
+				 else s.oea_use_only end is not null 
+and 		c.concept_status in ('Cancelled', 'Complete')
+)a
+where concept_id Not in 
+(select concept_id from crnd_aha_report_dev.aha_reporting_v1.crd_picog_concept
+where len(pdc_paws_intake_id)=3 and pdc_paws_intake_id='999'
+or 
+substring(replace(pdc_paws_intake_id,' ',''),len(replace(pdc_paws_intake_id,' ',''))-3,4)=';999'
+)
+
+--***********added
+select DISTINCT solution_id, count(solution_id) as solution_count
+into #solution_id_count
+from crnd_aha_report_dev.aha_reporting_v1.solution_final
+group by solution_id
+order by count(solution_id) desc
+
+select t1.*, 
+Null sem_incremental,
+Null sem_annualized,
+Null crd_backsweep, Null savings_model,
+t2.crd_pod into #thebase
+from #old_output t1
+left join crnd_aha_report_dev.aha_reporting_v1.crd_concept t2 on (t1.concept_id=t2.concept_id)
+where t1.solution_id not in (select solution_id from crnd_aha_report_dev.aha_reporting_v1.crd_solution_hybrid
+where savings_model = 'sem_model')
+and t1.solution_id not in (select solution_id from crnd_aha_report_dev.aha_reporting_v1.crd_solution_hybrid
+where savings_model = 'opp_model') 
+or t1.solution_id is Null --2800 records 
+Union all
+select  t1.*,
+case when t2.sem_incremental is Null then Null else
+round(t2.sem_incremental/isnull(t3.solution_count,1),0) end sem_incremental,
+case when t2.sem_annualized is Null then Null else
+round(t2.sem_annualized/isnull(t3.solution_count,1),0) end sem_sem_annualized,
+t2.crd_backsweep,
+t2.savings_model,
+t4.crd_pod
+from #old_output t1
+left join crnd_aha_report_dev.aha_reporting_v1.crd_solution_hybrid t2 on (t1.solution_id=t2.solution_id)
+left join #solution_id_count t3 on (t1.solution_id = t3.solution_id)
+left join crnd_aha_report_dev.aha_reporting_v1.crd_concept t4 on (t1.concept_id=t4.concept_id)
+where t1.solution_id in (select solution_id from crnd_aha_report_dev.aha_reporting_v1.crd_solution_hybrid
+where savings_model = 'opp_model') --1828 records
+and t1.solution_id is not null
+Union all 
+select t1.*, 
+case when t2.sem_incremental is Null then Null else
+round(t2.sem_incremental/isnull(t3.solution_count,1),0) end sem_incremental,
+case when t2.sem_annualized is Null then Null else
+round(t2.sem_annualized/isnull(t3.solution_count,1),0) end sem_sem_annualized,
+t2.crd_backsweep,
+t2.savings_model,
+t4.crd_pod
+from #old_output t1
+left join crnd_aha_report_dev.aha_reporting_v1.crd_solution_hybrid t2 on (t1.solution_id=t2.solution_id)
+left join #solution_id_count t3 on (t1.solution_id = t3.solution_id)
+left join crnd_aha_report_dev.aha_reporting_v1.crd_concept t4 on (t1.concept_id=t4.concept_id)
+where t1.solution_id in (select solution_id from crnd_aha_report_dev.aha_reporting_v1.crd_solution_hybrid
+where savings_model = 'sem_model') --145 records
+and t1.solution_id is not null;
+
+
+select *, case when refer_yes_no like 'Yes%' then 'Yes' else 'No' end as yes_no
+into #mybase
+from #thebase;
+
+
+select concept_id, client
+into #dedupe
+from #mybase
+group by concept_id, client
+having COUNT(*) >=1;
+
+
+
+select concept_id,  all_clients = STUFF((SELECT distinct N', ' + client
+from #dedupe as t2
+where t2.concept_id = t1.concept_id 
+FOR XML PATH (N''),TYPE).value(N'.[1]',N'nvarchar(max)'),1,1,N'')
+into #concat_clients5
+from #dedupe as t1
+group by concept_id
+order by concept_id;
+
+
+
+--drop table #allclients
+select a.*,cast(left(b.all_clients,1000) as varchar(1000)) as all_clients
+into #allclients
+from #mybase as a
+left join #concat_clients5 as b on a.concept_id = b.concept_id; 
+
+
+
+
+select concept_id, client, yes_no
+into #agg_clients
+from #mybase
+group by concept_id, client, yes_no
+having COUNT(*) >=1;
+
+select concept_id, yes_no, cat_clients = STUFF((SELECT distinct N', ' + client
+from #agg_clients as t2
+where t2.concept_id = t1.concept_id and t2.yes_no = t1.yes_no
+FOR XML PATH (N''),TYPE).value(N'.[1]',N'nvarchar(max)'),1,1,N'')
+into #concat_agg_clients
+from #agg_clients as t1
+group by concept_id, yes_no 
+order by concept_id, yes_no;
+
+select a.*,
+cast(left(c.cat_clients,1000) as varchar(1000)) as confirmed_clients, cast(left(b.cat_clients,1000) as varchar(1000)) as cancelled_clients,
+d.concept_cancellation_comments 
+from #allclients as a
+left join (select * from #concat_agg_clients where yes_no = 'No')  as b on a.concept_id = b.concept_id 
+left join (select * from #concat_agg_clients where yes_no = 'Yes')  as c on a.concept_id = c.concept_id
+left join aha_reporting_v1.crd_concept d on (a.concept_id=d.concept_id)
+
+ORDER by concept_id;
+
+end;
+GO
+
+
